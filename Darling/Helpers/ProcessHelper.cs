@@ -2,13 +2,13 @@
 
 internal static class ProcessHelper
 {
-    public static (IntPtr, IntPtr) FindProcess()
+    public static (IntPtr, Process?) FindProcess()
     {
-        var activeProcess = Process.GetProcessesByName(MainForm.Constants.ProcessName);
-        if (activeProcess == null || activeProcess.Length == 0) return (IntPtr.Zero, IntPtr.Zero);
+        var activeProcess = Process.GetProcessesByName(AppConstants.ProcessData.ProcessName);
+        if (activeProcess == null || activeProcess.Length == 0) return (IntPtr.Zero, null);
 
         var process = activeProcess.First();
 
-        return (process.MainWindowHandle, process.Handle);
+        return (process.MainWindowHandle, process);
     }
 }

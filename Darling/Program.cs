@@ -4,7 +4,6 @@ internal static class Program
 {
     public static IHost? AppHost { get; private set; }
     public static IServiceProvider? ServiceProvider { get; private set; }
-    private const string AppLanguage = "es-ES";
 
     /// <summary>
     ///  The main entry point for the application.
@@ -14,8 +13,8 @@ internal static class Program
     {
         ApplicationConfiguration.Initialize();
 
-        CultureInfo.CurrentCulture = new CultureInfo(AppLanguage);
-        CultureInfo.CurrentUICulture = new CultureInfo(AppLanguage);
+        CultureInfo.CurrentCulture = new CultureInfo(AppConstants.Options.Language);
+        CultureInfo.CurrentUICulture = new CultureInfo(AppConstants.Options.Language);
 
         Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 
@@ -27,6 +26,7 @@ internal static class Program
         try
         {
             var mainForm = ServiceProvider.GetRequiredService<MainForm>();
+            mainForm.Text = $"{AppConstants.Options.Name} - {AppConstants.Options.Version}";
             Application.Run(mainForm);
         }
         catch (Exception ex)

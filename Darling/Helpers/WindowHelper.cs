@@ -1,6 +1,4 @@
-﻿using Darling.Structs;
-
-namespace Darling.Helpers;
+﻿namespace Darling.Helpers;
 
 internal static partial class WindowHelper
 {
@@ -9,6 +7,12 @@ internal static partial class WindowHelper
 
     [DllImport("user32.dll", SetLastError = true)]
     public static extern bool GetWindowRect(IntPtr hwnd, out WindowRect lpRect);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    static extern bool BringWindowToTop(IntPtr hWnd);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    static extern bool BringWindowToTop(HandleRef hWnd);
 
     public static Rectangle GetWindowRectangle(IntPtr handle)
     {
@@ -34,12 +38,21 @@ internal static partial class WindowHelper
 
         gfxBmp.CopyFromScreen(rc.X, rc.Y, 0, 0, rc.Size, CopyPixelOperation.SourceCopy);
 
-        //using MemoryStream ms = new MemoryStream();
-        //bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
-
-        using FileStream fs = new FileStream(MainForm.Constants.ImageFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete);
+        using FileStream fs = new FileStream(AppConstants.ImageProcessing.ImageFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete);
         bmp.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
 
         return fs.Name;
+    }
+
+    public static void SetWindowToTopFront(IntPtr hWnd)
+    {
+        BringWindowToTop(hWnd);
+        Thread.Sleep(100);
+    }
+
+    public static void SetWindowToTopFront(HandleRef hWnd)
+    {
+        BringWindowToTop(hWnd);
+        Thread.Sleep(100);
     }
 }

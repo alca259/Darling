@@ -2,4 +2,6 @@
 
 internal interface IMySingingMonsterService
 {
+    bool FindGameProcess();
+    void RecoverAllResources();
 }
