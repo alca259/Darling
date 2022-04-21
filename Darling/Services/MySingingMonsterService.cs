@@ -9,6 +9,7 @@ internal class MySingingMonsterService : IMySingingMonsterService
 
     private static IntPtr WindowHandler { get; set; }
     private static Process? GameProcess { get; set; }
+    private static string? LastWindowTempPath { get; set; }
     private static Rectangle LastWindowRect { get; set; }
     private static Point LastWindowLocation => LastWindowRect.Location;
 
@@ -67,18 +68,20 @@ internal class MySingingMonsterService : IMySingingMonsterService
         var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMap);
         if (click == null) return;
         await MouseHelper.LeftClick(click.Value);
-        await Task.Delay(1000);
+        await Task.Delay(300);
 
         click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapNext);
         if (click == null) return;
         await MouseHelper.LeftClick(click.Value);
-        await Task.Delay(1000);
+        await Task.Delay(500);
 
         click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapGo);
         if (click == null) return;
         await MouseHelper.LeftClick(click.Value);
         await Task.Delay(1000);
     }
+
+
     #endregion
 
     /** Private **
@@ -100,6 +103,7 @@ internal class MySingingMonsterService : IMySingingMonsterService
         await WindowHelper.SetWindowToTopFront(WindowHandler);
         LastWindowRect = await WindowHelper.GetWindowRectangle(WindowHandler);
         var path = await WindowHelper.TakeScreenshot(LastWindowRect);
+        LastWindowTempPath = path;
         return path;
     }
 
@@ -150,8 +154,22 @@ internal class MySingingMonsterService : IMySingingMonsterService
             return;
         }
     }
+
+    private async Task<string?> ReadIslandText()
+    {
+        if (!IsProcessActive()) return null;
+
+        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapGo);
+        if (click == null) return null;
+
+        // Tenemos el botón de ir, buscamos el texto superior
+
+        var text = _tesseractService.GetStringFromImage(LastWindowTempPath, 0.8, 0.7, 1, 1);
+
+        return null;
+    }
     #endregion
 
-    //var text = _tesseractService.GetStringFromImage(path, 0.8f, 0.7f, 1f, 1f);
+    //
     //textBox1.Text = text + Environment.NewLine + textBox1.Text;
 }

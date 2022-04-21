@@ -18,7 +18,7 @@ internal struct AppConstants
 
     public struct ImageProcessing
     {
-        public const double ImageThreshold = 0.65;
+        public const double ImageThreshold = 0.85;
         public const string ImageFileName = "AlcaTempFile.jpg";
     }
     

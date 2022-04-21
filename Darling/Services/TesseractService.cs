@@ -13,7 +13,7 @@ internal class TesseractService : ITesseractService
     }
 
     #region Tesseract
-    public Rect GetRect(float x1Percent, float x2Percent, float y1Percent, float y2Percent, int width, int height)
+    public Rect GetRect(double x1Percent, double x2Percent, double y1Percent, double y2Percent, int width, int height)
     {
         int x1 = Convert.ToInt32(Math.Round(width * x1Percent, 0));
         int x2 = Convert.ToInt32(Math.Round(width * x2Percent, 0));
@@ -28,10 +28,10 @@ internal class TesseractService : ITesseractService
     /// </summary>
     /// <param name="imagePath">The image path.</param>
     /// <returns></returns>
-    public string GetStringFromImage(string imagePath)
+    public string GetStringFromImage(string? imagePath)
     {
         var textValue = string.Empty;
-        if (string.IsNullOrWhiteSpace(imagePath) == false && File.Exists(imagePath) == true)
+        if (string.IsNullOrEmpty(imagePath) == false && File.Exists(imagePath) == true)
         {
             try
             {
@@ -57,10 +57,10 @@ internal class TesseractService : ITesseractService
     /// <param name="x2Percent">Valor en porcentaje</param>
     /// <param name="y2Percent">Valor en porcentaje</param>
     /// <returns></returns>
-    public string GetStringFromImage(string imagePath, float x1Percent, float y1Percent, float x2Percent, float y2Percent)
+    public string GetStringFromImage(string? imagePath, double x1Percent, double y1Percent, double x2Percent, double y2Percent)
     {
         var textValue = string.Empty;
-        if (string.IsNullOrWhiteSpace(imagePath) == false && File.Exists(imagePath) == true)
+        if (string.IsNullOrEmpty(imagePath) == false && File.Exists(imagePath) == true)
         {
             try
             {
@@ -87,10 +87,10 @@ internal class TesseractService : ITesseractService
     /// <param name="x2">Valor en pixels</param>
     /// <param name="y2">Valor en pixels</param>
     /// <returns></returns>
-    public string GetStringFromImage(string imagePath, int x1, int y1, int x2, int y2)
+    public string GetStringFromImage(string? imagePath, int x1, int y1, int x2, int y2)
     {
         var textValue = string.Empty;
-        if (string.IsNullOrWhiteSpace(imagePath) == false && File.Exists(imagePath) == true)
+        if (string.IsNullOrEmpty(imagePath) == false && File.Exists(imagePath) == true)
         {
             try
             {
@@ -142,7 +142,7 @@ internal class TesseractService : ITesseractService
     /// <param name="x2Percent">Valor en porcentaje</param>
     /// <param name="y2Percent">Valor en porcentaje</param>
     /// <returns></returns>
-    public string GetStringFromImage(byte[] imageFile, float x1Percent, float y1Percent, float x2Percent, float y2Percent)
+    public string GetStringFromImage(byte[] imageFile, double x1Percent, double y1Percent, double x2Percent, double y2Percent)
     {
         var textValue = string.Empty;
         if (imageFile == null) return textValue;

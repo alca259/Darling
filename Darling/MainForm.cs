@@ -41,7 +41,6 @@ internal partial class MainForm : Form
         {
             if (!await _monsterService.FindGameProcess()) return;
             await _monsterService.RecoverAllResources();
-            await _monsterService.NextIsland();
         });
     }
 
