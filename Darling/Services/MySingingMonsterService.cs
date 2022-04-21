@@ -9,6 +9,8 @@ internal class MySingingMonsterService : IMySingingMonsterService
 
     private static IntPtr WindowHandler { get; set; }
     private static Process? GameProcess { get; set; }
+    private static Rectangle LastWindowRect { get; set; }
+    private static Point LastWindowLocation => LastWindowRect.Location;
 
     public MySingingMonsterService(
         IHostEnvironment hostEnvironment,
@@ -25,12 +27,8 @@ internal class MySingingMonsterService : IMySingingMonsterService
     /** Public **
      * FindGameProcess <- bool
      * RecoverAllResources <- void
-     * RecoverAllResourcesCheck <- void
-     * RecoverAllResourcesConfirm <- void
-     * RecoverAllResourcesCloseOnFail <- void
      * RecoverAllDiamonds <- void
      * NextIsland <- void
-     * CloseBanner <- void
      * IsPaused <- bool
      * Play <- void
      */
@@ -54,17 +52,40 @@ internal class MySingingMonsterService : IMySingingMonsterService
 
     public async Task RecoverAllResources()
     {
+        await CheckIfScreenIsClean();
         var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetAll);
         if (click == null) return;
 
         await MouseHelper.LeftClick(click.Value);
+        await CheckIfScreenIsClean();
+    }
+
+    public async Task NextIsland()
+    {
+        await CheckIfScreenIsClean();
+
+        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMap);
+        if (click == null) return;
+        await MouseHelper.LeftClick(click.Value);
+        await Task.Delay(1000);
+
+        click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapNext);
+        if (click == null) return;
+        await MouseHelper.LeftClick(click.Value);
+        await Task.Delay(1000);
+
+        click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapGo);
+        if (click == null) return;
+        await MouseHelper.LeftClick(click.Value);
+        await Task.Delay(1000);
     }
     #endregion
 
     /** Private **
      * IsProcessActive <- bool
-     * GetActualPicturePath <- string
+     * GetActualPicturePath <- string?
      * GetMouseClickPosition <- Point?
+     * CheckIfScreenIsClean <- void
      */
 
     #region Private
@@ -73,31 +94,61 @@ internal class MySingingMonsterService : IMySingingMonsterService
         return WindowHandler != IntPtr.Zero && !(GameProcess?.HasExited ?? true);
     }
 
-    private async Task<(Rectangle?, string)> GetActualPicturePath()
+    private async Task<string?> GetActualPicturePath()
     {
-        if (!IsProcessActive()) return (null, string.Empty);
+        if (!IsProcessActive()) return null;
         await WindowHelper.SetWindowToTopFront(WindowHandler);
-        var rect = await WindowHelper.GetWindowRectangle(WindowHandler);
-        var path = await WindowHelper.TakeScreenshot(rect);
-        return string.IsNullOrEmpty(path) ? (null, string.Empty) : (rect, path);
+        LastWindowRect = await WindowHelper.GetWindowRectangle(WindowHandler);
+        var path = await WindowHelper.TakeScreenshot(LastWindowRect);
+        return path;
     }
 
     private async Task<Point?> GetMouseClickPosition(string imgToSearchName)
     {
         if (!IsProcessActive()) return null;
         
-        (Rectangle? windowPos, string screenshotPath) = await GetActualPicturePath();
+        string? screenshotPath = await GetActualPicturePath();
+        if (screenshotPath == null) return null;
 
         var imagePathToFind = Path.Combine(_hostEnvironment.ContentRootPath, imgToSearchName);
-
         (bool found, Point? btnCenter) = _imageService.FindImage(screenshotPath, imagePathToFind, AppConstants.ImageProcessing.ImageThreshold);
 
         if (!found || !btnCenter.HasValue) return null;
 
-        Point windowLUCorner = windowPos?.Location ?? Point.Empty;
         Point btnPoint = btnCenter.Value;
 
-        return new Point(windowLUCorner.X + btnPoint.X, windowLUCorner.Y + btnPoint.Y);
+        return new Point(LastWindowLocation.X + btnPoint.X, LastWindowLocation.Y + btnPoint.Y);
+    }
+
+    private async Task CheckIfScreenIsClean()
+    {
+        if (!IsProcessActive()) return;
+
+        // Popup de publi?
+        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonBannerPubli);
+        if (click != null)
+        {
+            await MouseHelper.LeftClick(click.Value);
+            return;
+        }
+
+        // Popup de todo recolectado?
+        click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonBannerAllCollected);
+        if (click != null)
+        {
+            await MouseHelper.LeftClick(click.Value);
+            return;
+        }
+
+        // Está visible el botón de mapa?
+        // No -> Hacer click en la esquina inferior izquierda + margen
+        // Si -> Quiza no tenga botón de recolectar, no hacer nada
+        click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMap);
+        if (click == null)
+        {
+            await MouseHelper.LeftClick(new Point(LastWindowRect.Left + 100, LastWindowRect.Bottom - 10));
+            return;
+        }
     }
     #endregion
 

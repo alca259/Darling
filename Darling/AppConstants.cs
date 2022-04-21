@@ -26,6 +26,8 @@ internal struct AppConstants
     {
         private const string FolderContent = "Content";
         private const string FolderElements = "Elements";
+        public static readonly string ButtonBannerAllCollected = Path.Combine(FolderContent, FolderElements, "button_banner_allcollected.jpg");
+        public static readonly string ButtonBannerPubli = Path.Combine(FolderContent, FolderElements, "button_banner_allcollected.jpg");
         public static readonly string ButtonGetAll = Path.Combine(FolderContent, FolderElements, "button_getall.jpg");
         public static readonly string ButtonGetDiamond = Path.Combine(FolderContent, FolderElements, "button_getdiamond.jpg");
         public static readonly string ButtonGetMap = Path.Combine(FolderContent, FolderElements, "button_map.jpg");
