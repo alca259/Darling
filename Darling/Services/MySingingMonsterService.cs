@@ -75,6 +75,8 @@ internal class MySingingMonsterService : IMySingingMonsterService
         await MouseHelper.LeftClick(click.Value);
         await Task.Delay(500);
 
+        await ReadIslandText();
+
         click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapGo);
         if (click == null) return;
         await MouseHelper.LeftClick(click.Value);
@@ -163,10 +165,14 @@ internal class MySingingMonsterService : IMySingingMonsterService
         if (click == null) return null;
 
         // Tenemos el botón de ir, buscamos el texto superior
+        int x1 = 150;
+        int y1 = LastWindowRect.Height - 70;
+        int x2 = LastWindowRect.Width - 150;
+        int y2 = LastWindowRect.Height - 20;
 
-        var text = _tesseractService.GetStringFromImage(LastWindowTempPath, 0.8, 0.7, 1, 1);
+        var text = _tesseractService.GetStringFromImage(LastWindowTempPath, x1, y1, x2, y2);
 
-        return null;
+        return text;
     }
     #endregion
 

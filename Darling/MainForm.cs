@@ -40,7 +40,8 @@ internal partial class MainForm : Form
         Task.Factory.StartNew(async () =>
         {
             if (!await _monsterService.FindGameProcess()) return;
-            await _monsterService.RecoverAllResources();
+            //await _monsterService.RecoverAllResources();
+            await _monsterService.NextIsland();
         });
     }
 
