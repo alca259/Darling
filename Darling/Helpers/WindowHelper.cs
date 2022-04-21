@@ -14,7 +14,7 @@ internal static partial class WindowHelper
     [DllImport("user32.dll", SetLastError = true)]
     static extern bool BringWindowToTop(HandleRef hWnd);
 
-    public static Rectangle GetWindowRectangle(IntPtr handle)
+    public static Task<Rectangle> GetWindowRectangle(IntPtr handle)
     {
         WindowRect rect = new WindowRect();
 
@@ -28,31 +28,33 @@ internal static partial class WindowHelper
             GetWindowRect(handle, out rect);
         }
 
-        return rect.ToRectangle();
+        return Task.FromResult(rect.ToRectangle());
     }
 
-    public static string TakeScreenshot(Rectangle rc)
+    public static async Task<string> TakeScreenshot(Rectangle rc)
     {
         using Bitmap bmp = new Bitmap(rc.Width, rc.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
         using Graphics gfxBmp = Graphics.FromImage(bmp);
 
+        await Task.Delay(AppConstants.ProcessData.DelayThreadMilliseconds);
         gfxBmp.CopyFromScreen(rc.X, rc.Y, 0, 0, rc.Size, CopyPixelOperation.SourceCopy);
 
+        await Task.Delay(AppConstants.ProcessData.DelayThreadMilliseconds);
         using FileStream fs = new FileStream(AppConstants.ImageProcessing.ImageFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete);
         bmp.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
 
         return fs.Name;
     }
 
-    public static void SetWindowToTopFront(IntPtr hWnd)
+    public static Task SetWindowToTopFront(IntPtr hWnd)
     {
         BringWindowToTop(hWnd);
-        Thread.Sleep(100);
+        return Task.Delay(AppConstants.ProcessData.DelayThreadMilliseconds);
     }
 
-    public static void SetWindowToTopFront(HandleRef hWnd)
+    public static Task SetWindowToTopFront(HandleRef hWnd)
     {
         BringWindowToTop(hWnd);
-        Thread.Sleep(100);
+        return Task.Delay(AppConstants.ProcessData.DelayThreadMilliseconds);
     }
 }

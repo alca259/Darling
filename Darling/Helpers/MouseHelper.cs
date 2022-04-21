@@ -25,16 +25,15 @@ internal static class MouseHelper
         public const uint MOUSEEVENTF_HWHEEL = 0x01000;
     }
 
-    public static void LeftClick(Point p)
+    public static async Task LeftClick(Point p)
     {
-        uint x = Convert.ToUInt32(Math.Abs(p.X));
-        uint y = Convert.ToUInt32(Math.Abs(p.Y));
+        //uint x = Convert.ToUInt32(Math.Abs(p.X));
+        //uint y = Convert.ToUInt32(Math.Abs(p.Y));
 
         SetCursorPos(p.X, p.Y);
-        Thread.Sleep(100);
+        await Task.Delay(AppConstants.ProcessData.DelayMouseMilliseconds);
         mouse_event(MouseEventFlags.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-        Thread.Sleep(100);
+        await Task.Delay(AppConstants.ProcessData.DelayMouseMilliseconds);
         mouse_event(MouseEventFlags.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-
     }
 }

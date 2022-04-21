@@ -13,8 +13,11 @@ internal partial class MainForm : Form
 
     private void button1_Click(object sender, EventArgs e)
     {
-        if (!_monsterService.FindGameProcess()) return;
-        _monsterService.RecoverAllResources();
+        Task.Factory.StartNew(async () =>
+        {
+            if (!await _monsterService.FindGameProcess()) return;
+            await _monsterService.RecoverAllResources();
+        });
     }
 
     private void button2_Click(object sender, EventArgs e)

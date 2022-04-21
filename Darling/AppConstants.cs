@@ -12,6 +12,8 @@ internal struct AppConstants
     public struct ProcessData
     {
         public const string ProcessName = "MySingingMonsters";
+        public const int DelayThreadMilliseconds = 500;
+        public const int DelayMouseMilliseconds = 100;
     }
 
     public struct ImageProcessing

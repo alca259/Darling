@@ -36,11 +36,11 @@ internal class MySingingMonsterService : IMySingingMonsterService
      */
 
     #region Public
-    public bool FindGameProcess()
+    public async Task<bool> FindGameProcess()
     {
         if (IsProcessActive()) return true;
 
-        (WindowHandler, GameProcess) = ProcessHelper.FindProcess();
+        (WindowHandler, GameProcess) = await ProcessHelper.FindProcess();
 
         if (!IsProcessActive())
         {
@@ -52,12 +52,12 @@ internal class MySingingMonsterService : IMySingingMonsterService
         return true;
     }
 
-    public void RecoverAllResources()
+    public async Task RecoverAllResources()
     {
-        var click = GetMouseClickPosition(AppConstants.ImageElements.ButtonGetAll);
+        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetAll);
         if (click == null) return;
 
-        MouseHelper.LeftClick(click.Value);
+        await MouseHelper.LeftClick(click.Value);
     }
     #endregion
 
@@ -73,20 +73,20 @@ internal class MySingingMonsterService : IMySingingMonsterService
         return WindowHandler != IntPtr.Zero && !(GameProcess?.HasExited ?? true);
     }
 
-    private (Rectangle?, string) GetActualPicturePath()
+    private async Task<(Rectangle?, string)> GetActualPicturePath()
     {
         if (!IsProcessActive()) return (null, string.Empty);
-        WindowHelper.SetWindowToTopFront(WindowHandler);
-        var rect = WindowHelper.GetWindowRectangle(WindowHandler);
-        var path = WindowHelper.TakeScreenshot(rect);
+        await WindowHelper.SetWindowToTopFront(WindowHandler);
+        var rect = await WindowHelper.GetWindowRectangle(WindowHandler);
+        var path = await WindowHelper.TakeScreenshot(rect);
         return string.IsNullOrEmpty(path) ? (null, string.Empty) : (rect, path);
     }
 
-    private Point? GetMouseClickPosition(string imgToSearchName)
+    private async Task<Point?> GetMouseClickPosition(string imgToSearchName)
     {
         if (!IsProcessActive()) return null;
         
-        (Rectangle? windowPos, string screenshotPath) = GetActualPicturePath();
+        (Rectangle? windowPos, string screenshotPath) = await GetActualPicturePath();
 
         var imagePathToFind = Path.Combine(_hostEnvironment.ContentRootPath, imgToSearchName);
 
