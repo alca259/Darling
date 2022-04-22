@@ -4,6 +4,8 @@ internal class LogService : ILogService
 {
     private readonly ILogger<LogService> _logger;
 
+    public static event EventHandler<string>? LogEvent;
+
     public LogService(ILogger<LogService> logger)
     {
         _logger = logger;
@@ -39,6 +41,7 @@ internal class LogService : ILogService
                 break;
         }
 
+        LogEvent?.Invoke(this, message);
         Debug.WriteLine(message);
         return Task.CompletedTask;
     }
@@ -73,6 +76,7 @@ internal class LogService : ILogService
                 break;
         }
 
+        LogEvent?.Invoke(this, message);
         Debug.WriteLine(message);
         return Task.CompletedTask;
     }

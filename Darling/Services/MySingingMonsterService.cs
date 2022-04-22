@@ -23,6 +23,8 @@ internal class MySingingMonsterService : IMySingingMonsterService
         _tesseractService = tesseractService;
         _imageService = imageService;
         _logService = logService;
+
+        _logService.Log("Application started", LogLevel.Information);
     }
 
     /** Public **
@@ -39,6 +41,7 @@ internal class MySingingMonsterService : IMySingingMonsterService
     {
         if (IsProcessActive()) return true;
 
+        await _logService.Log("FindGameProcess", LogLevel.Information);
         (WindowHandler, GameProcess) = await ProcessHelper.FindProcess();
 
         if (!IsProcessActive())
@@ -53,6 +56,7 @@ internal class MySingingMonsterService : IMySingingMonsterService
 
     public async Task RecoverAllResources()
     {
+        await _logService.Log("RecoverAllResources", LogLevel.Information);
         await CheckIfScreenIsClean();
         var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetAll);
         if (click == null) return;
@@ -63,26 +67,59 @@ internal class MySingingMonsterService : IMySingingMonsterService
 
     public async Task NextIsland()
     {
+        await _logService.Log("NextIsland", LogLevel.Information);
+        await OpenMap();
+        await NavigateNextIsland();
+
+        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapGo);
+        if (click == null) return;
+        await MouseHelper.LeftClick(click.Value);
+        await Task.Delay(1000);
+    }
+
+    public async Task OpenMap()
+    {
+        await _logService.Log("OpenMap", LogLevel.Information);
         await CheckIfScreenIsClean();
 
         var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMap);
         if (click == null) return;
         await MouseHelper.LeftClick(click.Value);
         await Task.Delay(300);
-
-        click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapNext);
-        if (click == null) return;
-        await MouseHelper.LeftClick(click.Value);
-        await Task.Delay(500);
-
-        await ReadIslandText();
-
-        click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapGo);
-        if (click == null) return;
-        await MouseHelper.LeftClick(click.Value);
-        await Task.Delay(1000);
     }
 
+    public async Task NavigateNextIsland()
+    {
+        await _logService.Log("NavigateNextIsland", LogLevel.Information);
+        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapNext);
+        if (click == null) return;
+        await MouseHelper.LeftClick(click.Value);
+        await Task.Delay(100);
+
+        click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapOcupped, 0.60);
+
+        if (click == null)
+            click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapOcuppedSpecial1, 0.60);
+
+        if (click == null)
+        {
+            await NavigateNextIsland();
+            return;
+        }
+
+        await _logService.Log("Valid island found");
+
+        //var textReaded = await ReadIslandText();
+        //if (string.IsNullOrEmpty(textReaded)
+        //    || !textReaded.Contains("camas", StringComparison.InvariantCultureIgnoreCase)
+        //    || !textReaded.Contains("ocupada", StringComparison.InvariantCultureIgnoreCase))
+        //{
+        //    await _logService.Log($"Text not found or error: {textReaded}", LogLevel.Warning);
+        //    await NavigateNextIsland();
+        //    return;
+        //}
+        //await _logService.Log($"Text found: {textReaded}");
+    }
 
     #endregion
 
@@ -109,7 +146,7 @@ internal class MySingingMonsterService : IMySingingMonsterService
         return path;
     }
 
-    private async Task<Point?> GetMouseClickPosition(string imgToSearchName)
+    private async Task<Point?> GetMouseClickPosition(string imgToSearchName, double threshold = AppConstants.ImageProcessing.ImageThreshold)
     {
         if (!IsProcessActive()) return null;
         
@@ -117,7 +154,7 @@ internal class MySingingMonsterService : IMySingingMonsterService
         if (screenshotPath == null) return null;
 
         var imagePathToFind = Path.Combine(_hostEnvironment.ContentRootPath, imgToSearchName);
-        (bool found, Point? btnCenter) = _imageService.FindImage(screenshotPath, imagePathToFind, AppConstants.ImageProcessing.ImageThreshold);
+        (bool found, Point? btnCenter) = _imageService.FindImage(screenshotPath, imagePathToFind, threshold);
 
         if (!found || !btnCenter.HasValue) return null;
 
@@ -157,23 +194,29 @@ internal class MySingingMonsterService : IMySingingMonsterService
         }
     }
 
-    private async Task<string?> ReadIslandText()
-    {
-        if (!IsProcessActive()) return null;
+    //private async Task<string?> ReadIslandText()
+    //{
+    //    if (!IsProcessActive()) return null;
 
-        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapGo);
-        if (click == null) return null;
+    //    var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapGo);
+    //    if (click == null) return null;
 
-        // Tenemos el botón de ir, buscamos el texto superior
-        int x1 = 150;
-        int y1 = LastWindowRect.Height - 70;
-        int x2 = LastWindowRect.Width - 150;
-        int y2 = LastWindowRect.Height - 20;
+    //    /*
+    //    X1 440px (550) / 1366 = 0.322 (0.402635)
+    //    X2 980px (840) / 1366 = 0.717 (0.614934)
+    //    Y1 575px (620) / 768  = 0.748 (0.807291)
+    //    Y2 655px / 768  = 0.852864
+    //    */
+    //    // Tenemos el botón de ir, buscamos el texto superior
+    //    double x1 = 0.402635;
+    //    double x2 = 0.614934;
+    //    double y1 = 0.807291;
+    //    double y2 = 0.852864;
 
-        var text = _tesseractService.GetStringFromImage(LastWindowTempPath, x1, y1, x2, y2);
+    //    var text = _tesseractService.GetStringFromImage(LastWindowTempPath, x1, y1, x2, y2);
 
-        return text;
-    }
+    //    return text;
+    //}
     #endregion
 
     //
