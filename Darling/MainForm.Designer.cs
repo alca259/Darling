@@ -154,9 +154,11 @@ partial class MainForm
             this.LogTxtBox.BackColor = System.Drawing.Color.Black;
             this.LogTxtBox.ForeColor = System.Drawing.Color.White;
             this.LogTxtBox.Location = new System.Drawing.Point(12, 162);
+            this.LogTxtBox.MaxLength = 0;
             this.LogTxtBox.Multiline = true;
             this.LogTxtBox.Name = "LogTxtBox";
             this.LogTxtBox.ReadOnly = true;
+            this.LogTxtBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.LogTxtBox.Size = new System.Drawing.Size(360, 107);
             this.LogTxtBox.TabIndex = 8;
             // 
