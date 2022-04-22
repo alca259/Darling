@@ -41,7 +41,11 @@ internal class LogService : ILogService
                 break;
         }
 
-        LogEvent?.Invoke(this, message);
+        if (Serilog.Log.Logger.IsEnabled((Serilog.Events.LogEventLevel)severity))
+        {
+            LogEvent?.Invoke(this, message);
+        }
+        
         Debug.WriteLine(message);
         return Task.CompletedTask;
     }
@@ -76,7 +80,11 @@ internal class LogService : ILogService
                 break;
         }
 
-        LogEvent?.Invoke(this, message);
+        if (Serilog.Log.Logger.IsEnabled((Serilog.Events.LogEventLevel)severity))
+        {
+            LogEvent?.Invoke(this, message);
+        }
+
         Debug.WriteLine(message);
         return Task.CompletedTask;
     }

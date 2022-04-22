@@ -141,6 +141,7 @@ partial class MainForm
             // 
             // BtnStop
             // 
+            this.BtnStop.Enabled = false;
             this.BtnStop.Location = new System.Drawing.Point(6, 51);
             this.BtnStop.Name = "BtnStop";
             this.BtnStop.Size = new System.Drawing.Size(156, 23);

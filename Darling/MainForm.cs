@@ -34,7 +34,9 @@ internal partial class MainForm : Form
         {
             if (!await _monsterService.FindGameProcess()) return;
             await _monsterService.RecoverAllResources();
-            await Task.Delay(1000);
+            await Task.Delay(500);
+            await _monsterService.RecoverDiamonds();
+            await Task.Delay(500);
             await _monsterService.NextIsland();
             await Task.Delay(4000);
             _isRunning = false;
@@ -55,7 +57,7 @@ internal partial class MainForm : Form
         Task.Factory.StartNew(async () =>
         {
             if (!await _monsterService.FindGameProcess()) return;
-            // TODO: Pick diamonds
+            await _monsterService.RecoverDiamonds();
         });
     }
 
@@ -100,11 +102,15 @@ internal partial class MainForm : Form
     {
         if (_timer.Enabled) return;
         _timer.Start();
+        BtnStart.Enabled = false;
+        BtnStop.Enabled = true;
     }
 
     private void BtnStop_Click(object sender, EventArgs e)
     {
         if (!_timer.Enabled) return;
         _timer.Stop();
+        BtnStart.Enabled = true;
+        BtnStop.Enabled = false;
     }
 }
