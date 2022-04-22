@@ -7,6 +7,8 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ErrorReport>send</ErrorReport>
+		<StartupObject>Darling.Program</StartupObject>
+		<ApplicationIcon>Content\Icons\Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
