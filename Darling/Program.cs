@@ -13,8 +13,8 @@ internal static class Program
     {
         ApplicationConfiguration.Initialize();
 
-        CultureInfo.CurrentCulture = new CultureInfo(AppConstants.Options.Language);
-        CultureInfo.CurrentUICulture = new CultureInfo(AppConstants.Options.Language);
+        CultureInfo.CurrentCulture = new CultureInfo(AppSettings.Instance.Language);
+        CultureInfo.CurrentUICulture = new CultureInfo(AppSettings.Instance.Language);
 
         Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 
@@ -26,7 +26,7 @@ internal static class Program
         try
         {
             var mainForm = ServiceProvider.GetRequiredService<MainForm>();
-            mainForm.Text = $"{AppConstants.Options.Name} - {AppConstants.Options.Version}";
+            mainForm.Text = $"{AppSettings.Instance.Name} - {AppSettings.Instance.Version}";
             Application.Run(mainForm);
         }
         catch (Exception ex)

@@ -4,10 +4,10 @@ internal static class ProcessHelper
 {
     public static async Task<(IntPtr, Process?)> FindProcess()
     {
-        var activeProcess = Process.GetProcessesByName(AppConstants.ProcessData.ProcessName);
+        var activeProcess = Process.GetProcessesByName(AppSettings.Instance.ProcessName);
         if (activeProcess == null || activeProcess.Length == 0) return (IntPtr.Zero, null);
 
-        await Task.Delay(AppConstants.ProcessData.DelayThreadMilliseconds);
+        await Task.Delay(AppSettings.Instance.Delays.FindProcess);
         var process = activeProcess.First();
 
         return (process.MainWindowHandle, process);

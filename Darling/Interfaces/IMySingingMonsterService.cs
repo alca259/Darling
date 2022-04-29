@@ -5,7 +5,7 @@ internal interface IMySingingMonsterService
     Task<bool> FindGameProcess();
     Task RecoverAllResources();
     Task RecoverDiamonds();
-    Task NextIsland();
-    Task OpenMap();
+    Task EnterNextIsland();
+    Task<bool> OpenMap();
     Task NavigateNextIsland();
 }

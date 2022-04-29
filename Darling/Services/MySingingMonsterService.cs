@@ -7,12 +7,6 @@ internal class MySingingMonsterService : IMySingingMonsterService
     private readonly IImageService _imageService;
     private readonly ILogService _logService;
 
-    private static IntPtr WindowHandler { get; set; }
-    private static Process? GameProcess { get; set; }
-    private static string? LastWindowTempPath { get; set; }
-    private static Rectangle LastWindowRect { get; set; }
-    private static Point LastWindowLocation => LastWindowRect.Location;
-
     public MySingingMonsterService(
         IHostEnvironment hostEnvironment,
         ITesseractService tesseractService,
@@ -27,184 +21,193 @@ internal class MySingingMonsterService : IMySingingMonsterService
         _logService.Log("Application started", LogLevel.Information);
     }
 
-    /** Public **
-     * FindGameProcess <- bool
-     * RecoverAllResources <- void
-     * RecoverAllDiamonds <- void
-     * NextIsland <- void
-     * IsPaused <- bool
-     * Play <- void
-     */
-
     #region Public
     public async Task<bool> FindGameProcess()
     {
-        if (IsProcessActive()) return true;
+        if (AppSettings.Instance.CurrentProcess.IsProcessActive()) return true;
 
         await _logService.Log("FindGameProcess");
-        (WindowHandler, GameProcess) = await ProcessHelper.FindProcess();
+        AppSettings.Instance.CurrentProcess.SetHandlerProcess(await ProcessHelper.FindProcess());
 
-        if (!IsProcessActive())
+        if (AppSettings.Instance.CurrentProcess.IsProcessActive()) return true;
+
+        AppSettings.Instance.CurrentProcess.ClearProcess();
+        return false;
+    }
+
+    public async Task RecoverAllResources()
+    {
+        if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
+        await _logService.Log("RecoverAllResources");
+
+        await TakeCleanPicture();
+
+        var found = FindSubImage(AppConstants.ImageElements.ButtonGetAll, AppSettings.Instance.ThresholdButtons);
+        if (!found) return;
+
+        await MouseHelper.LeftClick();
+        await Task.Delay(AppSettings.Instance.Delays.IslandPopupWait);
+
+        await TakePicture();
+
+        // Popup de OK?
+        found = FindSubImage(AppConstants.ImageElements.ButtonBannerOk, AppSettings.Instance.ThresholdButtons);
+        if (found)
         {
-            WindowHandler = IntPtr.Zero;
-            GameProcess = null;
+            await MouseHelper.LeftClick();
+            await Task.Delay(AppSettings.Instance.Delays.IslandFindButton);
+            return;
+        }
+    }
+
+    public async Task RecoverDiamonds()
+    {
+        if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
+        await _logService.Log("RecoverDiamonds");
+        
+        await TakeCleanPicture();
+
+        var found = FindSubImage(AppConstants.ImageElements.ButtonGetDiamond, AppSettings.Instance.ThresholdButtons);
+        if (!found) return;
+
+        await MouseHelper.LeftClick();
+    }
+
+    public async Task EnterNextIsland()
+    {
+        if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
+
+        await _logService.Log("EnterNextIsland");
+        if (!await OpenMap())
+        {
+            await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
+            if (!await OpenMap()) return;
+        }
+
+        await NavigateNextIsland();
+
+        var found = FindSubImage(AppConstants.ImageElements.ButtonGetMapGo, AppSettings.Instance.ThresholdButtons);
+        if (!found) return;
+
+        await MouseHelper.LeftClick();
+        await Task.Delay(AppSettings.Instance.Delays.EnterIsland);
+    }
+
+    public async Task<bool> OpenMap()
+    {
+        if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return false;
+
+        await _logService.Log("OpenMap");
+        await TakeCleanPicture();
+
+        var found = FindSubImage(AppConstants.ImageElements.ButtonGetMap, AppSettings.Instance.ThresholdButtons);
+        if (!found) return false;
+
+        await MouseHelper.LeftClick();
+        await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
+
+        return true;
+    }
+
+    public async Task NavigateNextIsland()
+    {
+        if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
+
+        await _logService.Log("NavigateNextIsland");
+        await Task.Delay(AppSettings.Instance.Delays.NextIsland);
+        await TakePicture();
+
+        var found = FindSubImage(AppConstants.ImageElements.ButtonGetMapNext, AppSettings.Instance.ThresholdButtons);
+        if (!found) return;
+
+        await MouseHelper.LeftClick();
+        await Task.Delay(AppSettings.Instance.Delays.MouseClick);
+
+        await TakePicture();
+        found = FindSubImage(AppConstants.ImageElements.ButtonGetMapOcupped, AppSettings.Instance.ThresholdMapIslandText);
+
+        if (!found)
+        {
+            found = FindSubImage(AppConstants.ImageElements.ButtonGetMapOcuppedSpecial1, AppSettings.Instance.ThresholdMapIslandText);
+        }
+
+        if (!found)
+        {
+            await NavigateNextIsland();
+            return;
+        }
+
+        //var textReaded = ReadIslandText();
+        //if (!string.IsNullOrEmpty(textReaded))
+        //{
+        //    await _logService.Log($"Valid island found: (({textReaded}))");
+        //}
+    }
+
+    #endregion
+
+    #region Private
+    private async Task TakeCleanPicture()
+    {
+        await TakePicture();
+        bool isClean = await CheckIfScreenIsClean();
+        if (!isClean) await TakePicture();
+    }
+
+    private async Task TakePicture()
+    {
+        await WindowHelper.SetWindowToTopFront();
+        WindowHelper.GetWindowRectangle();
+        WindowHelper.TakeScreenshot();
+    }
+
+    private bool FindSubImage(string imgToSearchName, double threshold)
+    {
+        var imagePathToFind = Path.Combine(_hostEnvironment.ContentRootPath, imgToSearchName);
+        (bool found, Point btnCenter) = _imageService.FindImage(AppSettings.Instance.CurrentProcess.CapturePath, imagePathToFind, threshold);
+
+        if (!found) return false;
+
+        AppSettings.Instance.CurrentProcess.SetClickPoint(btnCenter);
+        return true;
+    }
+
+    private async Task<bool> CheckIfScreenIsClean()
+    {
+        // Popup de publi?
+        bool found = FindSubImage(AppConstants.ImageElements.ButtonBannerPubli, AppSettings.Instance.ThresholdButtons);
+        if (found)
+        {
+            await _logService.Log("Banner detected, closing...");
+            await MouseHelper.LeftClick();
+            return false;
+        }
+
+        // Popup de OK?
+        found = FindSubImage(AppConstants.ImageElements.ButtonBannerOk, AppSettings.Instance.ThresholdButtons);
+        if (found)
+        {
+            await MouseHelper.LeftClick();
+            return false;
+        }
+
+        // Está visible el botón de mapa?
+        // No -> Hacer click en la esquina inferior izquierda + margen
+        // Si -> Quiza no tenga botón de recolectar, no hacer nada
+        found = FindSubImage(AppConstants.ImageElements.ButtonGetMap, AppSettings.Instance.ThresholdButtons);
+        if (!found)
+        {
+            await MouseHelper.LeftClick(AppSettings.Instance.CurrentProcess.RightBottomPoint);
             return false;
         }
 
         return true;
     }
 
-    public async Task RecoverAllResources()
+    private string? ReadIslandText()
     {
-        await _logService.Log("RecoverAllResources");
-        await CheckIfScreenIsClean();
-        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetAll);
-        if (click == null) return;
-
-        await MouseHelper.LeftClick(click.Value);
-        await CheckIfScreenIsClean();
-    }
-
-    public async Task RecoverDiamonds()
-    {
-        await _logService.Log("RecoverDiamonds");
-        await CheckIfScreenIsClean();
-        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetDiamond);
-        if (click == null) return;
-
-        await MouseHelper.LeftClick(click.Value);
-        await CheckIfScreenIsClean();
-    }
-
-    public async Task NextIsland()
-    {
-        await _logService.Log("NextIsland");
-        await OpenMap();
-        await NavigateNextIsland();
-
-        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapGo);
-        if (click == null) return;
-        await MouseHelper.LeftClick(click.Value);
-        await Task.Delay(500);
-    }
-
-    public async Task OpenMap()
-    {
-        await _logService.Log("OpenMap");
-        await CheckIfScreenIsClean();
-
-        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMap);
-        if (click == null) return;
-        await MouseHelper.LeftClick(click.Value);
-        await Task.Delay(300);
-    }
-
-    public async Task NavigateNextIsland()
-    {
-        await _logService.Log("NavigateNextIsland");
-        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapNext);
-        if (click == null) return;
-        await MouseHelper.LeftClick(click.Value);
-        await Task.Delay(100);
-
-        click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapOcupped, 0.60);
-
-        if (click == null)
-            click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapOcuppedSpecial1, 0.60);
-
-        if (click == null)
-        {
-            await NavigateNextIsland();
-            return;
-        }
-
-        var textReaded = await ReadIslandText();
-        if (!string.IsNullOrEmpty(textReaded))
-        {
-            await _logService.Log($"Valid island found: (({textReaded}))");
-        }
-    }
-
-    #endregion
-
-    /** Private **
-     * IsProcessActive <- bool
-     * GetActualPicturePath <- string?
-     * GetMouseClickPosition <- Point?
-     * CheckIfScreenIsClean <- void
-     */
-
-    #region Private
-    private bool IsProcessActive()
-    {
-        return WindowHandler != IntPtr.Zero && !(GameProcess?.HasExited ?? true);
-    }
-
-    private async Task<string?> GetActualPicturePath()
-    {
-        if (!IsProcessActive()) return null;
-        await WindowHelper.SetWindowToTopFront(WindowHandler);
-        LastWindowRect = await WindowHelper.GetWindowRectangle(WindowHandler);
-        var path = await WindowHelper.TakeScreenshot(LastWindowRect);
-        LastWindowTempPath = path;
-        return path;
-    }
-
-    private async Task<Point?> GetMouseClickPosition(string imgToSearchName, double threshold = AppConstants.ImageProcessing.ImageThreshold)
-    {
-        if (!IsProcessActive()) return null;
-        
-        string? screenshotPath = await GetActualPicturePath();
-        if (screenshotPath == null) return null;
-
-        var imagePathToFind = Path.Combine(_hostEnvironment.ContentRootPath, imgToSearchName);
-        (bool found, Point? btnCenter) = _imageService.FindImage(screenshotPath, imagePathToFind, threshold);
-
-        if (!found || !btnCenter.HasValue) return null;
-
-        Point btnPoint = btnCenter.Value;
-
-        return new Point(LastWindowLocation.X + btnPoint.X, LastWindowLocation.Y + btnPoint.Y);
-    }
-
-    private async Task CheckIfScreenIsClean()
-    {
-        if (!IsProcessActive()) return;
-
-        // Popup de publi?
-        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonBannerPubli);
-        if (click != null)
-        {
-            await _logService.Log("Banner detected, closing...");
-            await MouseHelper.LeftClick(click.Value);
-            return;
-        }
-
-        // Popup de todo recolectado?
-        click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonBannerAllCollected);
-        if (click != null)
-        {
-            await MouseHelper.LeftClick(click.Value);
-            return;
-        }
-
-        // Está visible el botón de mapa?
-        // No -> Hacer click en la esquina inferior izquierda + margen
-        // Si -> Quiza no tenga botón de recolectar, no hacer nada
-        click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMap);
-        if (click == null)
-        {
-            await MouseHelper.LeftClick(new Point(LastWindowRect.Left + 100, LastWindowRect.Bottom - 10));
-            return;
-        }
-    }
-
-    private async Task<string?> ReadIslandText()
-    {
-        if (!IsProcessActive()) return null;
-
-        var click = await GetMouseClickPosition(AppConstants.ImageElements.ButtonGetMapGo);
-        if (click == null) return null;
+        var found = FindSubImage(AppConstants.ImageElements.ButtonGetMapGo, AppSettings.Instance.ThresholdButtons);
+        if (!found) return null;
 
         /*
          * Camas ocupadas
@@ -227,12 +230,9 @@ internal class MySingingMonsterService : IMySingingMonsterService
         double y1 = 0.748697916666667;
         double y2 = 0.807291666666667;
 
-        var text = _tesseractService.GetStringFromImage(LastWindowTempPath, x1, y1, x2, y2);
+        var text = _tesseractService.GetStringFromImage(AppSettings.Instance.CurrentProcess.CapturePath, x1, y1, x2, y2);
 
         return text;
     }
     #endregion
-
-    //
-    //textBox1.Text = text + Environment.NewLine + textBox1.Text;
 }

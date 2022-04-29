@@ -2,7 +2,7 @@
 
 internal interface IImageService
 {
-    (bool, Point?) FindImage(
+    (bool, Point) FindImage(
         string filepathSource,
         string filepathToSearch,
         double threshold = 0.9,

@@ -34,11 +34,11 @@ internal partial class MainForm : Form
         {
             if (!await _monsterService.FindGameProcess()) return;
             await _monsterService.RecoverAllResources();
-            await Task.Delay(500);
+            await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
             await _monsterService.RecoverDiamonds();
-            await Task.Delay(500);
-            await _monsterService.NextIsland();
-            await Task.Delay(4000);
+            await Task.Delay(AppSettings.Instance.Delays.IslandStay);
+            await _monsterService.EnterNextIsland();
+            await Task.Delay(AppSettings.Instance.Delays.AfterEnterIsland);
             _isRunning = false;
         });
     }
@@ -85,7 +85,7 @@ internal partial class MainForm : Form
         {
             if (!await _monsterService.FindGameProcess()) return;
             await _monsterService.RecoverAllResources();
-            await _monsterService.NextIsland();
+            await _monsterService.EnterNextIsland();
         });
     }
 
@@ -94,7 +94,7 @@ internal partial class MainForm : Form
         Task.Factory.StartNew(async () =>
         {
             if (!await _monsterService.FindGameProcess()) return;
-            await _monsterService.NextIsland();
+            await _monsterService.EnterNextIsland();
         });
     }
 

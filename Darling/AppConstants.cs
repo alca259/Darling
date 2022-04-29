@@ -2,31 +2,11 @@
 
 internal struct AppConstants
 {
-    public struct Options
-    {
-        public const string Language = "es-ES";
-        public const string Version = "1.0.0";
-        public const string Name = "Darling";
-    }
-
-    public struct ProcessData
-    {
-        public const string ProcessName = "MySingingMonsters";
-        public const int DelayThreadMilliseconds = 500;
-        public const int DelayMouseMilliseconds = 100;
-    }
-
-    public struct ImageProcessing
-    {
-        public const double ImageThreshold = 0.85;
-        public const string ImageFileName = "AlcaTempFile.jpg";
-    }
-    
     public struct ImageElements
     {
         private const string FolderContent = "Content";
         private const string FolderElements = "Elements";
-        public static readonly string ButtonBannerAllCollected = Path.Combine(FolderContent, FolderElements, "button_banner_allcollected.jpg");
+        public static readonly string ButtonBannerOk = Path.Combine(FolderContent, FolderElements, "button_banner_allcollected.jpg");
         public static readonly string ButtonBannerPubli = Path.Combine(FolderContent, FolderElements, "banner_close.jpg");
         public static readonly string ButtonGetAll = Path.Combine(FolderContent, FolderElements, "button_getall.jpg");
         public static readonly string ButtonGetDiamond = Path.Combine(FolderContent, FolderElements, "button_getdiamond.jpg");

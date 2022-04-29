@@ -9,7 +9,7 @@ internal class ImageService : IImageService
         _logService = logService;
     }
 
-    public (bool, Point?) FindImage(
+    public (bool, Point) FindImage(
         string filepathSource,
         string filepathToSearch,
         double threshold = 0.9,
@@ -22,7 +22,7 @@ internal class ImageService : IImageService
 
         string message = string.Empty;
         bool found = false;
-        Point? point = null;
+        Point point = Point.Empty;
 
         using (Image<Gray, float> result = source.MatchTemplate(template, TemplateMatchingType.CcoeffNormed))
         {
@@ -51,6 +51,11 @@ internal class ImageService : IImageService
         if (debugPictureBox != null)
         {
             debugPictureBox.Image = found ? imageToShow.AsBitmap() : null;
+        }
+
+        if (found)
+        {
+            _logService.Log($"{message} - {Path.GetFileName(filepathToSearch)}");
         }
 
         return (found, point);
