@@ -40,6 +40,8 @@ partial class MainForm
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtnStop = new System.Windows.Forms.Button();
             this.LogTxtBox = new System.Windows.Forms.TextBox();
+            this.BtnStopVote = new System.Windows.Forms.Button();
+            this.BtnStartVote = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -58,9 +60,9 @@ partial class MainForm
             // 
             this.BtnStart.Location = new System.Drawing.Point(6, 22);
             this.BtnStart.Name = "BtnStart";
-            this.BtnStart.Size = new System.Drawing.Size(156, 23);
+            this.BtnStart.Size = new System.Drawing.Size(82, 23);
             this.BtnStart.TabIndex = 6;
-            this.BtnStart.Text = "Start Timer";
+            this.BtnStart.Text = "Start collect";
             this.BtnStart.UseVisualStyleBackColor = true;
             this.BtnStart.Click += new System.EventHandler(this.BtnStart_Click);
             // 
@@ -131,6 +133,8 @@ partial class MainForm
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.BtnStopVote);
+            this.groupBox2.Controls.Add(this.BtnStartVote);
             this.groupBox2.Controls.Add(this.BtnStop);
             this.groupBox2.Controls.Add(this.BtnStart);
             this.groupBox2.Location = new System.Drawing.Point(204, 12);
@@ -138,16 +142,16 @@ partial class MainForm
             this.groupBox2.Size = new System.Drawing.Size(168, 144);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Timer";
+            this.groupBox2.Text = "Timers";
             // 
             // BtnStop
             // 
             this.BtnStop.Enabled = false;
-            this.BtnStop.Location = new System.Drawing.Point(6, 51);
+            this.BtnStop.Location = new System.Drawing.Point(93, 22);
             this.BtnStop.Name = "BtnStop";
-            this.BtnStop.Size = new System.Drawing.Size(156, 23);
+            this.BtnStop.Size = new System.Drawing.Size(69, 23);
             this.BtnStop.TabIndex = 7;
-            this.BtnStop.Text = "Stop Timer";
+            this.BtnStop.Text = "Stop";
             this.BtnStop.UseVisualStyleBackColor = true;
             this.BtnStop.Click += new System.EventHandler(this.BtnStop_Click);
             // 
@@ -163,6 +167,27 @@ partial class MainForm
             this.LogTxtBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.LogTxtBox.Size = new System.Drawing.Size(360, 107);
             this.LogTxtBox.TabIndex = 8;
+            // 
+            // BtnStopVote
+            // 
+            this.BtnStopVote.Enabled = false;
+            this.BtnStopVote.Location = new System.Drawing.Point(93, 51);
+            this.BtnStopVote.Name = "BtnStopVote";
+            this.BtnStopVote.Size = new System.Drawing.Size(69, 23);
+            this.BtnStopVote.TabIndex = 9;
+            this.BtnStopVote.Text = "Stop";
+            this.BtnStopVote.UseVisualStyleBackColor = true;
+            this.BtnStopVote.Click += new System.EventHandler(this.BtnStopVote_Click);
+            // 
+            // BtnStartVote
+            // 
+            this.BtnStartVote.Location = new System.Drawing.Point(6, 51);
+            this.BtnStartVote.Name = "BtnStartVote";
+            this.BtnStartVote.Size = new System.Drawing.Size(82, 23);
+            this.BtnStartVote.TabIndex = 8;
+            this.BtnStartVote.Text = "Start vote";
+            this.BtnStartVote.UseVisualStyleBackColor = true;
+            this.BtnStartVote.Click += new System.EventHandler(this.BtnStartVote_Click);
             // 
             // MainForm
             // 
@@ -200,4 +225,6 @@ partial class MainForm
     private GroupBox groupBox2;
     private Button BtnStop;
     private TextBox LogTxtBox;
+    private Button BtnStopVote;
+    private Button BtnStartVote;
 }

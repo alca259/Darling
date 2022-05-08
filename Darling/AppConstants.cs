@@ -15,5 +15,9 @@ internal struct AppConstants
         public static readonly string ButtonGetMapNext = Path.Combine(FolderContent, FolderElements, "button_map_next.jpg");
         public static readonly string ButtonGetMapOcupped = Path.Combine(FolderContent, FolderElements, "beds_ocupped.jpg");
         public static readonly string ButtonGetMapOcuppedSpecial1 = Path.Combine(FolderContent, FolderElements, "beds_ocupped_special_1.jpg");
+
+        public static readonly string ButtonVoteIslandUp = Path.Combine(FolderContent, FolderElements, "button_voteisland_up.jpg");
+        public static readonly string ButtonVoteIslandNext = Path.Combine(FolderContent, FolderElements, "button_voteisland_next.jpg");
+        public static readonly string ButtonVoteIslandTorchOn = Path.Combine(FolderContent, FolderElements, "button_torchon.jpg");
     }
 }

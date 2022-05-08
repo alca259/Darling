@@ -146,6 +146,50 @@ internal class MySingingMonsterService : IMySingingMonsterService
 
     #endregion
 
+    #region Vote Island public
+    public async Task VoteUpIsland()
+    {
+        if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
+        await _logService.Log("VoteUpIsland");
+
+        await TakeCleanPicture();
+
+        var found = FindSubImage(AppConstants.ImageElements.ButtonVoteIslandUp, AppSettings.Instance.ThresholdButtons);
+        if (!found) return;
+
+        await MouseHelper.LeftClick();
+        await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
+
+    }
+
+    public async Task FireTorch()
+    {
+        if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
+        await _logService.Log("FireTorch");
+
+        await TakeCleanPicture();
+
+        var found = FindSubImage(AppConstants.ImageElements.ButtonVoteIslandTorchOn, AppSettings.Instance.ThresholdButtons);
+        if (!found) return;
+
+        await MouseHelper.LeftClick();
+    }
+
+    public async Task NextVoteIsland()
+    {
+        if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
+        await _logService.Log("NextVoteIsland");
+
+        await TakeCleanPicture();
+
+        var found = FindSubImage(AppConstants.ImageElements.ButtonVoteIslandNext, AppSettings.Instance.ThresholdButtons);
+        if (!found) return;
+
+        await MouseHelper.LeftClick();
+        await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
+    }
+    #endregion
+
     #region Private
     private async Task TakeCleanPicture()
     {

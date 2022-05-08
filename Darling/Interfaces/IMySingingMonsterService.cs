@@ -8,4 +8,7 @@ internal interface IMySingingMonsterService
     Task EnterNextIsland();
     Task<bool> OpenMap();
     Task NavigateNextIsland();
+    Task VoteUpIsland();
+    Task FireTorch();
+    Task NextVoteIsland();
 }

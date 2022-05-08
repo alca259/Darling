@@ -17,6 +17,7 @@ public struct DelayMilliseconds
     [Range(800, 2000)] public int NextIsland { get; set; } = 800;
     [Range(800, 2000)] public int EnterIsland { get; set; } = 800;
     [Range(1000, 5000)] public int AfterEnterIsland { get; set; } = 3000;
+    [Range(5000, 10000)] public int NextVoteIsland { get; set; } = 5000;
     [Range(1000, 5000)] public int MemoryGameWaitBetweenScreens { get; set; } = 1500;
     [Range(500, 2000)] public int MemoryGameDiscoverNext { get; set; } = 500;
 }
