@@ -16,7 +16,7 @@ public class AppSettings
     [Range(0.01, 0.99)] public double ThresholdMapIslandText { get; set; } = 0.60;
     public string ProcessName { get; set; } = "MySingingMonsters";
     public string Language { get; set; } = "es-ES";
-    public string Version { get; set; } = "1.0.1";
+    public string Version { get; set; } = "1.0.2";
     public string Name { get; set; } = "Darling";
     public string TempImageFileName { get; set; } = "AlcaTempFile.jpg";
 }

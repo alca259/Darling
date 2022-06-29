@@ -20,6 +20,49 @@ internal partial class MainForm : Form
         _timer.Tick += Timer_Tick;
 
         LogService.LogEvent += LogService_LogEvent;
+
+        AdjustUI();
+    }
+
+    private void AdjustUI()
+    {
+#if DEBUG
+        gbDebugSection.Visible = true;
+#endif
+
+        sliderFindProcess.SetMilliseconds(AppSettings.Instance.Delays.FindProcess);
+        sliderMouseClick.SetMilliseconds(AppSettings.Instance.Delays.MouseClick);
+        sliderWindowToTop.SetMilliseconds(AppSettings.Instance.Delays.WindowToTop);
+        sliderDiamondsWait.SetMilliseconds(AppSettings.Instance.Delays.DiamondsWait);
+        sliderWaitBetweenActions.SetMilliseconds(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
+        sliderIslandStay.SetMilliseconds(AppSettings.Instance.Delays.IslandStay);
+        sliderFindButton.SetMilliseconds(AppSettings.Instance.Delays.IslandFindButton);
+        sliderPopupWait.SetMilliseconds(AppSettings.Instance.Delays.IslandPopupWait);
+        sliderNextIsland.SetMilliseconds(AppSettings.Instance.Delays.NextIsland);
+        sliderEnterIsland.SetMilliseconds(AppSettings.Instance.Delays.EnterIsland);
+        sliderAfterEnterIsland.SetMilliseconds(AppSettings.Instance.Delays.AfterEnterIsland);
+        sliderNextVoteIsland.SetMilliseconds(AppSettings.Instance.Delays.NextVoteIsland);
+        sliderMemoryGameBetweenScenes.SetMilliseconds(AppSettings.Instance.Delays.MemoryGameWaitBetweenScreens);
+        //sliderMemoryGameBetweenScenes.SetMilliseconds(AppSettings.Instance.Delays.MemoryGameDiscoverNext(milli));
+        sliderThresholdButton.SetMilliseconds((int)Math.Truncate(AppSettings.Instance.ThresholdButtons * 100));
+        sliderThresholdMapIsland.SetMilliseconds((int)Math.Truncate(AppSettings.Instance.ThresholdMapIslandText * 100));
+
+        sliderFindProcess.SliderChanged += (e, milli) => AppSettings.Instance.Delays.FindProcess = milli;
+        sliderMouseClick.SliderChanged += (e, milli) => AppSettings.Instance.Delays.MouseClick = milli;
+        sliderWindowToTop.SliderChanged += (e, milli) => AppSettings.Instance.Delays.WindowToTop = milli;
+        sliderDiamondsWait.SliderChanged += (e, milli) => AppSettings.Instance.Delays.DiamondsWait = milli;
+        sliderWaitBetweenActions.SliderChanged += (e, milli) => AppSettings.Instance.Delays.DefaultWaitBetweenActions = milli;
+        sliderIslandStay.SliderChanged += (e, milli) => AppSettings.Instance.Delays.IslandStay = milli;
+        sliderFindButton.SliderChanged += (e, milli) => AppSettings.Instance.Delays.IslandFindButton = milli;
+        sliderPopupWait.SliderChanged += (e, milli) => AppSettings.Instance.Delays.IslandPopupWait = milli;
+        sliderNextIsland.SliderChanged += (e, milli) => AppSettings.Instance.Delays.NextIsland = milli;
+        sliderEnterIsland.SliderChanged += (e, milli) => AppSettings.Instance.Delays.EnterIsland = milli;
+        sliderAfterEnterIsland.SliderChanged += (e, milli) => AppSettings.Instance.Delays.AfterEnterIsland = milli;
+        sliderNextVoteIsland.SliderChanged += (e, milli) => AppSettings.Instance.Delays.NextVoteIsland = milli;
+        sliderMemoryGameBetweenScenes.SliderChanged += (e, milli) => AppSettings.Instance.Delays.MemoryGameWaitBetweenScreens = milli;
+        //sliderMemoryGameBetweenScenes.SliderChanged += (e, milli) => AppSettings.Instance.Delays.MemoryGameDiscoverNext = milli;
+        sliderThresholdButton.SliderChanged += (e, milli) => AppSettings.Instance.ThresholdButtons = milli / 100.0;
+        sliderThresholdMapIsland.SliderChanged += (e, milli) => AppSettings.Instance.ThresholdMapIslandText = milli / 100.0;
     }
 
     private void LogService_LogEvent(object? sender, string e)
@@ -53,7 +96,7 @@ internal partial class MainForm : Form
             {
                 case TimerActions.CollectAll:
                     await _monsterService.RecoverAllResources();
-                    await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
+                    await Task.Delay(AppSettings.Instance.Delays.DiamondsWait);
                     await _monsterService.RecoverDiamonds();
                     await Task.Delay(AppSettings.Instance.Delays.IslandStay);
                     await _monsterService.EnterNextIsland();
@@ -61,7 +104,7 @@ internal partial class MainForm : Form
                     break;
                 case TimerActions.VoteIsland:
                     await _monsterService.VoteUpIsland();
-                    await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
+                    await Task.Delay(AppSettings.Instance.Delays.DiamondsWait);
                     await _monsterService.FireTorch();
                     await Task.Delay(AppSettings.Instance.Delays.IslandStay);
                     await _monsterService.NextVoteIsland();
@@ -168,5 +211,10 @@ internal partial class MainForm : Form
         BtnStop.Enabled = false;
         BtnStartVote.Enabled = true;
         BtnStopVote.Enabled = false;
+    }
+
+    private void slider1_Load(object sender, EventArgs e)
+    {
+
     }
 }
