@@ -9,6 +9,7 @@
 		<ErrorReport>send</ErrorReport>
 		<StartupObject>Darling.Program</StartupObject>
 		<ApplicationIcon>Content\Icons\Icon.ico</ApplicationIcon>
+		<Version>1.0.3</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

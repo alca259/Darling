@@ -10,7 +10,7 @@ public class DelayMilliseconds
     [Range(300, 1000)] public int FindProcess { get; set; } = 300;
     [Range(300, 1000)] public int MouseClick { get; set; } = 300;
     [Range(200, 1000)] public int WindowToTop { get; set; } = 200;
-    [Range(300, 10000)] public int DiamondsWait { get; set; } = 1500;
+    [Range(300, 10000)] public int DiamondsWait { get; set; } = 2500;
     [Range(300, 1000)] public int DefaultWaitBetweenActions { get; set; } = 300;
     [Range(1000, 60000)] public int IslandStay { get; set; } = 1000;
     [Range(300, 1000)] public int IslandFindButton { get; set; } = 300;
