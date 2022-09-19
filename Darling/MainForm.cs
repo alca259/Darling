@@ -1,16 +1,22 @@
+using Alca259.Forms;
+using Dapplo.Microsoft.Extensions.Hosting.WinForms;
+
 namespace Darling;
 
-internal partial class MainForm : Form
+internal partial class MainForm : FlatForm, IWinFormsShell
 {
     private readonly IMySingingMonsterService _monsterService;
     private readonly System.Windows.Forms.Timer _timer;
     private static bool _isRunning = false;
+    private CancellationTokenSource _cancellationToken;
     private static TimerActions _timerAction = TimerActions.CollectAll;
 
     public MainForm(
         IMySingingMonsterService monsterService)
     {
         InitializeComponent();
+        _cancellationToken = new CancellationTokenSource();
+
         _monsterService = monsterService;
         _timer = new System.Windows.Forms.Timer
         {
@@ -20,16 +26,28 @@ internal partial class MainForm : Form
         _timer.Tick += Timer_Tick;
 
         LogService.LogEvent += LogService_LogEvent;
+        KeyManagementListenerBackground.StopRunningEvent += KeyManagementListenerBackground_StopRunningEvent;
 
         AdjustUI();
     }
 
+    private void KeyManagementListenerBackground_StopRunningEvent(object? sender, KeyCap.Keyboard.KeyboardEventArgs e)
+    {
+        if (!_isRunning) return;
+        _isRunning = false;
+        switch (_timerAction)
+        {
+            case TimerActions.CollectAll:
+                BtnStop.ControlInvoke(() => BtnStop.PerformClick());
+                break;
+            case TimerActions.VoteIsland:
+                BtnStopVote.ControlInvoke(() => BtnStopVote.PerformClick());
+                break;
+        }
+    }
+
     private void AdjustUI()
     {
-#if DEBUG
-        gbDebugSection.Visible = true;
-#endif
-
         sliderFindProcess.SetMilliseconds(AppSettings.Instance.Delays.FindProcess);
         sliderMouseClick.SetMilliseconds(AppSettings.Instance.Delays.MouseClick);
         sliderWindowToTop.SetMilliseconds(AppSettings.Instance.Delays.WindowToTop);
@@ -76,7 +94,7 @@ internal partial class MainForm : Form
         _isRunning = true;
         Task.Factory.StartNew(async () =>
         {
-            if (!await _monsterService.FindGameProcess())
+            if (!await _monsterService.FindGameProcess(_cancellationToken.Token))
             {
                 _isRunning = false;
                 switch (_timerAction)
@@ -95,20 +113,20 @@ internal partial class MainForm : Form
             switch (_timerAction)
             {
                 case TimerActions.CollectAll:
-                    await _monsterService.RecoverAllResources();
-                    await Task.Delay(AppSettings.Instance.Delays.DiamondsWait);
-                    await _monsterService.RecoverDiamonds();
-                    await Task.Delay(AppSettings.Instance.Delays.IslandStay);
-                    await _monsterService.EnterNextIsland();
-                    await Task.Delay(AppSettings.Instance.Delays.AfterEnterIsland);
+                    await _monsterService.RecoverAllResources(_cancellationToken.Token);
+                    await Task.Delay(AppSettings.Instance.Delays.DiamondsWait, _cancellationToken.Token);
+                    await _monsterService.RecoverDiamonds(_cancellationToken.Token);
+                    await Task.Delay(AppSettings.Instance.Delays.IslandStay, _cancellationToken.Token);
+                    await _monsterService.EnterNextIsland(_cancellationToken.Token);
+                    await Task.Delay(AppSettings.Instance.Delays.AfterEnterIsland, _cancellationToken.Token);
                     break;
                 case TimerActions.VoteIsland:
-                    await _monsterService.VoteUpIsland();
-                    await Task.Delay(AppSettings.Instance.Delays.DiamondsWait);
-                    await _monsterService.FireTorch();
-                    await Task.Delay(AppSettings.Instance.Delays.IslandStay);
-                    await _monsterService.NextVoteIsland();
-                    await Task.Delay(AppSettings.Instance.Delays.NextVoteIsland);
+                    await _monsterService.VoteUpIsland(_cancellationToken.Token);
+                    await Task.Delay(AppSettings.Instance.Delays.DiamondsWait, _cancellationToken.Token);
+                    await _monsterService.FireTorch(_cancellationToken.Token);
+                    await Task.Delay(AppSettings.Instance.Delays.IslandStay, _cancellationToken.Token);
+                    await _monsterService.NextVoteIsland(_cancellationToken.Token);
+                    await Task.Delay(AppSettings.Instance.Delays.NextVoteIsland, _cancellationToken.Token);
                     break;
             }
 
@@ -116,64 +134,11 @@ internal partial class MainForm : Form
         });
     }
 
-    private void BtnPickAll_Click(object sender, EventArgs e)
-    {
-        Task.Factory.StartNew(async () =>
-        {
-            if (!await _monsterService.FindGameProcess()) return;
-            await _monsterService.RecoverAllResources();
-        });
-    }
-
-    private void BtnPickDiamonds_Click(object sender, EventArgs e)
-    {
-        Task.Factory.StartNew(async () =>
-        {
-            if (!await _monsterService.FindGameProcess()) return;
-            await _monsterService.RecoverDiamonds();
-        });
-    }
-
-    private void BtnOpenMap_Click(object sender, EventArgs e)
-    {
-        Task.Factory.StartNew(async () =>
-        {
-            if (!await _monsterService.FindGameProcess()) return;
-            await _monsterService.OpenMap();
-        });
-    }
-
-    private void BtnNextIsland_Click(object sender, EventArgs e)
-    {
-        Task.Factory.StartNew(async () =>
-        {
-            if (!await _monsterService.FindGameProcess()) return;
-            await _monsterService.NavigateNextIsland();
-        });
-    }
-
-    private void BtnCompletePath_Click(object sender, EventArgs e)
-    {
-        Task.Factory.StartNew(async () =>
-        {
-            if (!await _monsterService.FindGameProcess()) return;
-            await _monsterService.RecoverAllResources();
-            await _monsterService.EnterNextIsland();
-        });
-    }
-
-    private void BtnOpenMapAndNext_Click(object sender, EventArgs e)
-    {
-        Task.Factory.StartNew(async () =>
-        {
-            if (!await _monsterService.FindGameProcess()) return;
-            await _monsterService.EnterNextIsland();
-        });
-    }
-
     private void BtnStart_Click(object sender, EventArgs e)
     {
         if (_timer.Enabled) return;
+        _cancellationToken = new CancellationTokenSource();
+
         _timerAction = TimerActions.CollectAll;
         _timer.Start();
         BtnStart.Enabled = false;
@@ -211,10 +176,5 @@ internal partial class MainForm : Form
         BtnStop.Enabled = false;
         BtnStartVote.Enabled = true;
         BtnStopVote.Enabled = false;
-    }
-
-    private void slider1_Load(object sender, EventArgs e)
-    {
-
     }
 }

@@ -22,12 +22,12 @@ internal class MySingingMonsterService : IMySingingMonsterService
     }
 
     #region Public
-    public async Task<bool> FindGameProcess()
+    public async Task<bool> FindGameProcess(CancellationToken token)
     {
         if (AppSettings.Instance.CurrentProcess.IsProcessActive()) return true;
 
         await _logService.Log("FindGameProcess");
-        AppSettings.Instance.CurrentProcess.SetHandlerProcess(await ProcessHelper.FindProcess());
+        AppSettings.Instance.CurrentProcess.SetHandlerProcess(await ProcessHelper.FindProcess(token));
 
         if (AppSettings.Instance.CurrentProcess.IsProcessActive()) return true;
 
@@ -35,95 +35,95 @@ internal class MySingingMonsterService : IMySingingMonsterService
         return false;
     }
 
-    public async Task RecoverAllResources()
+    public async Task RecoverAllResources(CancellationToken token)
     {
         if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
         await _logService.Log("RecoverAllResources");
 
-        await TakeCleanPicture();
+        await TakeCleanPicture(token);
 
         var found = FindSubImage(AppConstants.ImageElements.ButtonGetAll, AppSettings.Instance.ThresholdButtons);
         if (!found) return;
 
-        await MouseHelper.LeftClick();
-        await Task.Delay(AppSettings.Instance.Delays.IslandPopupWait);
+        await MouseHelper.LeftClick(token: token);
+        await Task.Delay(AppSettings.Instance.Delays.IslandPopupWait, token);
 
-        await TakePicture();
+        await TakePicture(token);
 
         // Popup de OK?
         found = FindSubImage(AppConstants.ImageElements.ButtonBannerOk, AppSettings.Instance.ThresholdButtons);
         if (found)
         {
-            await MouseHelper.LeftClick();
-            await Task.Delay(AppSettings.Instance.Delays.IslandFindButton);
+            await MouseHelper.LeftClick(token: token);
+            await Task.Delay(AppSettings.Instance.Delays.IslandFindButton, token);
             return;
         }
     }
 
-    public async Task RecoverDiamonds()
+    public async Task RecoverDiamonds(CancellationToken token)
     {
         if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
         await _logService.Log("RecoverDiamonds");
         
-        await TakeCleanPicture();
+        await TakeCleanPicture(token);
 
         var found = FindSubImage(AppConstants.ImageElements.ButtonGetDiamond, AppSettings.Instance.ThresholdButtons);
         if (!found) return;
 
-        await MouseHelper.LeftClick();
+        await MouseHelper.LeftClick(token: token);
     }
 
-    public async Task EnterNextIsland()
+    public async Task EnterNextIsland(CancellationToken token)
     {
         if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
 
         await _logService.Log("EnterNextIsland");
-        if (!await OpenMap())
+        if (!await OpenMap(token))
         {
-            await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
-            if (!await OpenMap()) return;
+            await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions, token);
+            if (!await OpenMap(token)) return;
         }
 
-        await NavigateNextIsland();
+        await NavigateNextIsland(token);
 
         var found = FindSubImage(AppConstants.ImageElements.ButtonGetMapGo, AppSettings.Instance.ThresholdButtons);
         if (!found) return;
 
-        await MouseHelper.LeftClick();
-        await Task.Delay(AppSettings.Instance.Delays.EnterIsland);
+        await MouseHelper.LeftClick(token: token);
+        await Task.Delay(AppSettings.Instance.Delays.EnterIsland, token);
     }
 
-    public async Task<bool> OpenMap()
+    public async Task<bool> OpenMap(CancellationToken token)
     {
         if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return false;
 
         await _logService.Log("OpenMap");
-        await TakeCleanPicture();
+        await TakeCleanPicture(token);
 
         var found = FindSubImage(AppConstants.ImageElements.ButtonGetMap, AppSettings.Instance.ThresholdButtons);
         if (!found) return false;
 
-        await MouseHelper.LeftClick();
-        await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
+        await MouseHelper.LeftClick(token: token);
+        await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions, token);
 
         return true;
     }
 
-    public async Task NavigateNextIsland()
+    public async Task NavigateNextIsland(CancellationToken token)
     {
         if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
 
         await _logService.Log("NavigateNextIsland");
-        await Task.Delay(AppSettings.Instance.Delays.NextIsland);
-        await TakePicture();
+        await Task.Delay(AppSettings.Instance.Delays.NextIsland, token);
+        await TakePicture(token);
 
         var found = FindSubImage(AppConstants.ImageElements.ButtonGetMapNext, AppSettings.Instance.ThresholdButtons);
         if (!found) return;
 
-        await MouseHelper.LeftClick();
-        await Task.Delay(AppSettings.Instance.Delays.MouseClick);
+        await MouseHelper.LeftClick(token: token);
+        await Task.Delay(AppSettings.Instance.Delays.MouseClick, token);
 
-        await TakePicture();
+        await TakePicture(token);
         found = FindSubImage(AppConstants.ImageElements.ButtonGetMapOcupped, AppSettings.Instance.ThresholdMapIslandText);
 
         if (!found)
@@ -133,7 +133,7 @@ internal class MySingingMonsterService : IMySingingMonsterService
 
         if (!found)
         {
-            await NavigateNextIsland();
+            await NavigateNextIsland(token);
             return;
         }
 
@@ -147,60 +147,60 @@ internal class MySingingMonsterService : IMySingingMonsterService
     #endregion
 
     #region Vote Island public
-    public async Task VoteUpIsland()
+    public async Task VoteUpIsland(CancellationToken token)
     {
         if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
         await _logService.Log("VoteUpIsland");
 
-        await TakeCleanPicture();
+        await TakeCleanPicture(token);
 
         var found = FindSubImage(AppConstants.ImageElements.ButtonVoteIslandUp, AppSettings.Instance.ThresholdButtons);
         if (!found) return;
 
-        await MouseHelper.LeftClick();
-        await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
+        await MouseHelper.LeftClick(token: token);
+        await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions, token);
 
     }
 
-    public async Task FireTorch()
+    public async Task FireTorch(CancellationToken token)
     {
         if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
         await _logService.Log("FireTorch");
 
-        await TakeCleanPicture();
+        await TakeCleanPicture(token);
 
         var found = FindSubImage(AppConstants.ImageElements.ButtonVoteIslandTorchOn, AppSettings.Instance.ThresholdButtons);
         if (!found) return;
 
-        await MouseHelper.LeftClick();
+        await MouseHelper.LeftClick(token: token);
     }
 
-    public async Task NextVoteIsland()
+    public async Task NextVoteIsland(CancellationToken token)
     {
         if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
         await _logService.Log("NextVoteIsland");
 
-        await TakeCleanPicture();
+        await TakeCleanPicture(token);
 
         var found = FindSubImage(AppConstants.ImageElements.ButtonVoteIslandNext, AppSettings.Instance.ThresholdButtons);
         if (!found) return;
 
-        await MouseHelper.LeftClick();
-        await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
+        await MouseHelper.LeftClick(token: token);
+        await Task.Delay(AppSettings.Instance.Delays.DefaultWaitBetweenActions, token);
     }
     #endregion
 
     #region Private
-    private async Task TakeCleanPicture()
+    private async Task TakeCleanPicture(CancellationToken token)
     {
-        await TakePicture();
-        bool isClean = await CheckIfScreenIsClean();
-        if (!isClean) await TakePicture();
+        await TakePicture(token);
+        bool isClean = await CheckIfScreenIsClean(token);
+        if (!isClean) await TakePicture(token);
     }
 
-    private async Task TakePicture()
+    private async Task TakePicture(CancellationToken token)
     {
-        await WindowHelper.SetWindowToTopFront();
+        await WindowHelper.SetWindowToTopFront(token);
         WindowHelper.GetWindowRectangle();
         WindowHelper.TakeScreenshot();
     }
@@ -216,14 +216,14 @@ internal class MySingingMonsterService : IMySingingMonsterService
         return true;
     }
 
-    private async Task<bool> CheckIfScreenIsClean()
+    private async Task<bool> CheckIfScreenIsClean(CancellationToken token)
     {
         // Popup de publi?
         bool found = FindSubImage(AppConstants.ImageElements.ButtonBannerPubli, AppSettings.Instance.ThresholdButtons);
         if (found)
         {
             await _logService.Log("Banner detected, closing...");
-            await MouseHelper.LeftClick();
+            await MouseHelper.LeftClick(token: token);
             return false;
         }
 
@@ -231,7 +231,7 @@ internal class MySingingMonsterService : IMySingingMonsterService
         found = FindSubImage(AppConstants.ImageElements.ButtonBannerOk, AppSettings.Instance.ThresholdButtons);
         if (found)
         {
-            await MouseHelper.LeftClick();
+            await MouseHelper.LeftClick(token: token);
             return false;
         }
 
@@ -241,7 +241,7 @@ internal class MySingingMonsterService : IMySingingMonsterService
         found = FindSubImage(AppConstants.ImageElements.ButtonGetMap, AppSettings.Instance.ThresholdButtons);
         if (!found)
         {
-            await MouseHelper.LeftClick(AppSettings.Instance.CurrentProcess.RightBottomPoint);
+            await MouseHelper.LeftClick(AppSettings.Instance.CurrentProcess.RightBottomPoint, token);
             return false;
         }
 

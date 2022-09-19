@@ -25,21 +25,21 @@ internal static class MouseHelper
         public const uint MOUSEEVENTF_HWHEEL = 0x01000;
     }
 
-    public static async Task LeftClick(Point? optionalPoint = null)
+    public static async Task LeftClick(Point? optionalPoint = null, CancellationToken token = default)
     {
         Point p = optionalPoint.HasValue ? optionalPoint.Value : AppSettings.Instance.CurrentProcess.ClickPoint;
         SetCursorPos(p.X, p.Y);
         mouse_event(MouseEventFlags.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-        await Task.Delay(100);
+        await Task.Delay(100, token);
         mouse_event(MouseEventFlags.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
     }
 
-    public static async Task DoubleLeftClick(Point? optionalPoint = null)
+    public static async Task DoubleLeftClick(Point? optionalPoint = null, CancellationToken token = default)
     {
         Point p = optionalPoint.HasValue ? optionalPoint.Value : AppSettings.Instance.CurrentProcess.ClickPoint;
         SetCursorPos(p.X, p.Y);
         mouse_event(MouseEventFlags.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-        await Task.Delay(300);
+        await Task.Delay(300, token);
         mouse_event(MouseEventFlags.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
     }
 }

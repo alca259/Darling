@@ -2,13 +2,13 @@
 
 internal interface IMySingingMonsterService
 {
-    Task<bool> FindGameProcess();
-    Task RecoverAllResources();
-    Task RecoverDiamonds();
-    Task EnterNextIsland();
-    Task<bool> OpenMap();
-    Task NavigateNextIsland();
-    Task VoteUpIsland();
-    Task FireTorch();
-    Task NextVoteIsland();
+    Task<bool> FindGameProcess(CancellationToken token);
+    Task RecoverAllResources(CancellationToken token);
+    Task RecoverDiamonds(CancellationToken token);
+    Task EnterNextIsland(CancellationToken token);
+    Task<bool> OpenMap(CancellationToken token);
+    Task NavigateNextIsland(CancellationToken token);
+    Task VoteUpIsland(CancellationToken token);
+    Task FireTorch(CancellationToken token);
+    Task NextVoteIsland(CancellationToken token);
 }

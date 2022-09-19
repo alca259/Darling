@@ -1,3 +1,5 @@
+using Dapplo.Microsoft.Extensions.Hosting.WinForms;
+
 namespace Darling;
 
 internal static class Program
@@ -26,15 +28,14 @@ internal static class Program
         try
         {
             var mainForm = ServiceProvider.GetRequiredService<MainForm>();
-            mainForm.Text = $"{AppSettings.Instance.Name} - {AppSettings.Instance.Version}";
-            Application.Run(mainForm);
+            mainForm.Title = $"{AppSettings.Instance.Name} - {AppSettings.Instance.Version}";
+            AppHost.Run();
         }
         catch (Exception ex)
         {
             Log.Logger.Information("Aplication is closed. " + ex.Message);
         }
     }
-
 
     public static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
         .UseContentRoot(Directory.GetCurrentDirectory())
@@ -57,5 +58,8 @@ internal static class Program
         {
             // Añadimos Serilog obteniendo la configuración desde Microsoft.Extensions.Configuration
             loggerConfiguration.ReadFrom.Configuration(context.Configuration);
-        });
+        })
+        .ConfigureWinForms<MainForm>()
+        .UseWinFormsLifetime()
+        .UseConsoleLifetime();
 }

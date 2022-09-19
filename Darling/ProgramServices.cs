@@ -9,5 +9,7 @@ internal static class ProgramServices
         services.AddSingleton<ITesseractService, TesseractService>();
         services.AddSingleton<IImageService, ImageService>();
         services.AddSingleton<IMySingingMonsterService, MySingingMonsterService>();
+
+        services.AddHostedService<KeyManagementListenerBackground>();
     }
 }

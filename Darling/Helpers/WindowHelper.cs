@@ -70,15 +70,15 @@ internal static partial class WindowHelper
         gfxBmp.ReleaseHdc(hdc);
 
         using FileStream fs = new FileStream(AppSettings.Instance.TempImageFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete);
-        bmp.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+        bmp.Save(fs, ImageFormat.Jpeg);
 
         AppSettings.Instance.CurrentProcess.CapturePath = fs.Name;
     }
 
-    public static Task SetWindowToTopFront()
+    public static Task SetWindowToTopFront(CancellationToken token)
     {
         IntPtr handle = AppSettings.Instance.CurrentProcess.WindowHandler;
         BringWindowToTop(handle);
-        return Task.Delay(AppSettings.Instance.Delays.WindowToTop);
+        return Task.Delay(AppSettings.Instance.Delays.WindowToTop, token);
     }
 }

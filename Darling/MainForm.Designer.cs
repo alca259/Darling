@@ -29,14 +29,7 @@ partial class MainForm
     private void InitializeComponent()
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.BtnPickAll = new System.Windows.Forms.Button();
             this.BtnStart = new System.Windows.Forms.Button();
-            this.BtnPickDiamonds = new System.Windows.Forms.Button();
-            this.BtnOpenMap = new System.Windows.Forms.Button();
-            this.BtnCompletePath = new System.Windows.Forms.Button();
-            this.BtnNextIsland = new System.Windows.Forms.Button();
-            this.gbDebugSection = new System.Windows.Forms.GroupBox();
-            this.BtnOpenMapAndNext = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtnStop = new System.Windows.Forms.Button();
             this.BtnStopVote = new System.Windows.Forms.Button();
@@ -61,7 +54,6 @@ partial class MainForm
             this.sliderFindProcess = new Darling.Controls.Slider();
             this.sliderThresholdMapIsland = new Darling.Controls.Slider();
             this.sliderThresholdButton = new Darling.Controls.Slider();
-            this.gbDebugSection.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -69,99 +61,27 @@ partial class MainForm
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // BtnPickAll
-            // 
-            this.BtnPickAll.Location = new System.Drawing.Point(9, 22);
-            this.BtnPickAll.Name = "BtnPickAll";
-            this.BtnPickAll.Size = new System.Drawing.Size(75, 23);
-            this.BtnPickAll.TabIndex = 0;
-            this.BtnPickAll.Text = "Pick All";
-            this.BtnPickAll.UseVisualStyleBackColor = true;
-            this.BtnPickAll.Click += new System.EventHandler(this.BtnPickAll_Click);
-            // 
             // BtnStart
             // 
+            this.BtnStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.BtnStart.FlatAppearance.BorderSize = 0;
+            this.BtnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnStart.Location = new System.Drawing.Point(6, 22);
             this.BtnStart.Name = "BtnStart";
             this.BtnStart.Size = new System.Drawing.Size(82, 23);
             this.BtnStart.TabIndex = 6;
             this.BtnStart.Text = "Start";
-            this.BtnStart.UseVisualStyleBackColor = true;
+            this.BtnStart.UseVisualStyleBackColor = false;
             this.BtnStart.Click += new System.EventHandler(this.BtnStart_Click);
-            // 
-            // BtnPickDiamonds
-            // 
-            this.BtnPickDiamonds.Location = new System.Drawing.Point(90, 22);
-            this.BtnPickDiamonds.Name = "BtnPickDiamonds";
-            this.BtnPickDiamonds.Size = new System.Drawing.Size(75, 23);
-            this.BtnPickDiamonds.TabIndex = 1;
-            this.BtnPickDiamonds.Text = "Diamonds";
-            this.BtnPickDiamonds.UseVisualStyleBackColor = true;
-            this.BtnPickDiamonds.Click += new System.EventHandler(this.BtnPickDiamonds_Click);
-            // 
-            // BtnOpenMap
-            // 
-            this.BtnOpenMap.Location = new System.Drawing.Point(171, 22);
-            this.BtnOpenMap.Name = "BtnOpenMap";
-            this.BtnOpenMap.Size = new System.Drawing.Size(75, 23);
-            this.BtnOpenMap.TabIndex = 2;
-            this.BtnOpenMap.Text = "Open Map";
-            this.BtnOpenMap.UseVisualStyleBackColor = true;
-            this.BtnOpenMap.Click += new System.EventHandler(this.BtnOpenMap_Click);
-            // 
-            // BtnCompletePath
-            // 
-            this.BtnCompletePath.Location = new System.Drawing.Point(429, 22);
-            this.BtnCompletePath.Name = "BtnCompletePath";
-            this.BtnCompletePath.Size = new System.Drawing.Size(95, 23);
-            this.BtnCompletePath.TabIndex = 4;
-            this.BtnCompletePath.Text = "Complete Path";
-            this.BtnCompletePath.UseVisualStyleBackColor = true;
-            this.BtnCompletePath.Click += new System.EventHandler(this.BtnCompletePath_Click);
-            // 
-            // BtnNextIsland
-            // 
-            this.BtnNextIsland.Location = new System.Drawing.Point(252, 22);
-            this.BtnNextIsland.Name = "BtnNextIsland";
-            this.BtnNextIsland.Size = new System.Drawing.Size(75, 23);
-            this.BtnNextIsland.TabIndex = 3;
-            this.BtnNextIsland.Text = "Next Island";
-            this.BtnNextIsland.UseVisualStyleBackColor = true;
-            this.BtnNextIsland.Click += new System.EventHandler(this.BtnNextIsland_Click);
-            // 
-            // gbDebugSection
-            // 
-            this.gbDebugSection.Controls.Add(this.BtnOpenMapAndNext);
-            this.gbDebugSection.Controls.Add(this.BtnPickAll);
-            this.gbDebugSection.Controls.Add(this.BtnCompletePath);
-            this.gbDebugSection.Controls.Add(this.BtnNextIsland);
-            this.gbDebugSection.Controls.Add(this.BtnPickDiamonds);
-            this.gbDebugSection.Controls.Add(this.BtnOpenMap);
-            this.gbDebugSection.Location = new System.Drawing.Point(364, 9);
-            this.gbDebugSection.Name = "gbDebugSection";
-            this.gbDebugSection.Size = new System.Drawing.Size(530, 54);
-            this.gbDebugSection.TabIndex = 6;
-            this.gbDebugSection.TabStop = false;
-            this.gbDebugSection.Text = "Debug section";
-            this.gbDebugSection.Visible = false;
-            // 
-            // BtnOpenMapAndNext
-            // 
-            this.BtnOpenMapAndNext.Location = new System.Drawing.Point(333, 22);
-            this.BtnOpenMapAndNext.Name = "BtnOpenMapAndNext";
-            this.BtnOpenMapAndNext.Size = new System.Drawing.Size(90, 23);
-            this.BtnOpenMapAndNext.TabIndex = 5;
-            this.BtnOpenMapAndNext.Text = "Map and Next";
-            this.BtnOpenMapAndNext.UseVisualStyleBackColor = true;
-            this.BtnOpenMapAndNext.Click += new System.EventHandler(this.BtnOpenMapAndNext_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.BtnStop);
             this.groupBox2.Controls.Add(this.BtnStart);
+            this.groupBox2.ForeColor = System.Drawing.Color.Gainsboro;
             this.groupBox2.Location = new System.Drawing.Point(9, 9);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(168, 54);
+            this.groupBox2.Size = new System.Drawing.Size(203, 54);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Auto collect";
@@ -169,44 +89,54 @@ partial class MainForm
             // BtnStop
             // 
             this.BtnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
             this.BtnStop.Enabled = false;
-            this.BtnStop.Location = new System.Drawing.Point(93, 22);
+            this.BtnStop.FlatAppearance.BorderSize = 0;
+            this.BtnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnStop.Location = new System.Drawing.Point(94, 22);
             this.BtnStop.Name = "BtnStop";
-            this.BtnStop.Size = new System.Drawing.Size(69, 23);
+            this.BtnStop.Size = new System.Drawing.Size(103, 23);
             this.BtnStop.TabIndex = 7;
-            this.BtnStop.Text = "Stop";
-            this.BtnStop.UseVisualStyleBackColor = true;
+            this.BtnStop.Text = "Stop (Ctrl+F7)";
+            this.BtnStop.UseVisualStyleBackColor = false;
             this.BtnStop.Click += new System.EventHandler(this.BtnStop_Click);
             // 
             // BtnStopVote
             // 
             this.BtnStopVote.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnStopVote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
             this.BtnStopVote.Enabled = false;
-            this.BtnStopVote.Location = new System.Drawing.Point(100, 22);
+            this.BtnStopVote.FlatAppearance.BorderSize = 0;
+            this.BtnStopVote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnStopVote.Location = new System.Drawing.Point(94, 22);
             this.BtnStopVote.Name = "BtnStopVote";
-            this.BtnStopVote.Size = new System.Drawing.Size(69, 23);
+            this.BtnStopVote.Size = new System.Drawing.Size(113, 23);
             this.BtnStopVote.TabIndex = 9;
-            this.BtnStopVote.Text = "Stop";
-            this.BtnStopVote.UseVisualStyleBackColor = true;
+            this.BtnStopVote.Text = "Stop (Ctrl+F7)";
+            this.BtnStopVote.UseVisualStyleBackColor = false;
             this.BtnStopVote.Click += new System.EventHandler(this.BtnStopVote_Click);
             // 
             // BtnStartVote
             // 
+            this.BtnStartVote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.BtnStartVote.FlatAppearance.BorderSize = 0;
+            this.BtnStartVote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnStartVote.Location = new System.Drawing.Point(6, 22);
             this.BtnStartVote.Name = "BtnStartVote";
             this.BtnStartVote.Size = new System.Drawing.Size(82, 23);
             this.BtnStartVote.TabIndex = 8;
             this.BtnStartVote.Text = "Start";
-            this.BtnStartVote.UseVisualStyleBackColor = true;
+            this.BtnStartVote.UseVisualStyleBackColor = false;
             this.BtnStartVote.Click += new System.EventHandler(this.BtnStartVote_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.BtnStopVote);
             this.groupBox1.Controls.Add(this.BtnStartVote);
-            this.groupBox1.Location = new System.Drawing.Point(183, 9);
+            this.groupBox1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.groupBox1.Location = new System.Drawing.Point(218, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(175, 54);
+            this.groupBox1.Size = new System.Drawing.Size(213, 54);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Auto vote";
@@ -215,7 +145,6 @@ partial class MainForm
             // 
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.gbDebugSection);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
@@ -224,19 +153,20 @@ partial class MainForm
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.LogTxtBox, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 27);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(908, 641);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(908, 652);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
             // LogTxtBox
@@ -244,7 +174,7 @@ partial class MainForm
             this.LogTxtBox.BackColor = System.Drawing.Color.Black;
             this.LogTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LogTxtBox.ForeColor = System.Drawing.Color.White;
-            this.LogTxtBox.Location = new System.Drawing.Point(3, 524);
+            this.LogTxtBox.Location = new System.Drawing.Point(3, 535);
             this.LogTxtBox.MaxLength = 0;
             this.LogTxtBox.Multiline = true;
             this.LogTxtBox.Name = "LogTxtBox";
@@ -273,12 +203,13 @@ partial class MainForm
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 78);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(902, 440);
+            this.panel2.Size = new System.Drawing.Size(902, 451);
             this.panel2.TabIndex = 9;
             // 
             // sliderNextVoteIsland
             // 
             this.sliderNextVoteIsland.CurrentValue = 5;
+            this.sliderNextVoteIsland.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderNextVoteIsland.IsEnabled = true;
             this.sliderNextVoteIsland.LabelToShow = "Delay next vote island (sec)";
             this.sliderNextVoteIsland.Location = new System.Drawing.Point(623, 184);
@@ -293,6 +224,7 @@ partial class MainForm
             // sliderAfterEnterIsland
             // 
             this.sliderAfterEnterIsland.CurrentValue = 10;
+            this.sliderAfterEnterIsland.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderAfterEnterIsland.IsEnabled = true;
             this.sliderAfterEnterIsland.LabelToShow = "Delay after enter island (sec/10)";
             this.sliderAfterEnterIsland.Location = new System.Drawing.Point(623, 98);
@@ -307,6 +239,7 @@ partial class MainForm
             // sliderEnterIsland
             // 
             this.sliderEnterIsland.CurrentValue = 8;
+            this.sliderEnterIsland.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderEnterIsland.IsEnabled = true;
             this.sliderEnterIsland.LabelToShow = "Delay enter island (sec/10)";
             this.sliderEnterIsland.Location = new System.Drawing.Point(623, 12);
@@ -321,6 +254,7 @@ partial class MainForm
             // sliderNextIsland
             // 
             this.sliderNextIsland.CurrentValue = 8;
+            this.sliderNextIsland.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderNextIsland.IsEnabled = true;
             this.sliderNextIsland.LabelToShow = "Delay next island (sec/10)";
             this.sliderNextIsland.Location = new System.Drawing.Point(319, 356);
@@ -335,6 +269,7 @@ partial class MainForm
             // sliderPopupWait
             // 
             this.sliderPopupWait.CurrentValue = 3;
+            this.sliderPopupWait.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderPopupWait.IsEnabled = true;
             this.sliderPopupWait.LabelToShow = "Delay popup wait (sec/10)";
             this.sliderPopupWait.Location = new System.Drawing.Point(16, 356);
@@ -349,6 +284,7 @@ partial class MainForm
             // sliderFindButton
             // 
             this.sliderFindButton.CurrentValue = 3;
+            this.sliderFindButton.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderFindButton.IsEnabled = true;
             this.sliderFindButton.LabelToShow = "Delay find button (sec/10)";
             this.sliderFindButton.Location = new System.Drawing.Point(319, 270);
@@ -363,6 +299,7 @@ partial class MainForm
             // sliderIslandStay
             // 
             this.sliderIslandStay.CurrentValue = 1;
+            this.sliderIslandStay.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderIslandStay.IsEnabled = true;
             this.sliderIslandStay.LabelToShow = "Delay island stay (sec)";
             this.sliderIslandStay.Location = new System.Drawing.Point(17, 270);
@@ -378,6 +315,7 @@ partial class MainForm
             // 
             this.sliderMemoryGameBetweenScenes.CurrentValue = 10;
             this.sliderMemoryGameBetweenScenes.Enabled = false;
+            this.sliderMemoryGameBetweenScenes.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderMemoryGameBetweenScenes.IsEnabled = true;
             this.sliderMemoryGameBetweenScenes.LabelToShow = "Memory game between (sec/10)";
             this.sliderMemoryGameBetweenScenes.Location = new System.Drawing.Point(319, 184);
@@ -392,6 +330,7 @@ partial class MainForm
             // sliderWaitBetweenActions
             // 
             this.sliderWaitBetweenActions.CurrentValue = 3;
+            this.sliderWaitBetweenActions.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderWaitBetweenActions.IsEnabled = true;
             this.sliderWaitBetweenActions.LabelToShow = "Delay default wait (sec/10)";
             this.sliderWaitBetweenActions.Location = new System.Drawing.Point(17, 184);
@@ -406,6 +345,7 @@ partial class MainForm
             // sliderDiamondsWait
             // 
             this.sliderDiamondsWait.CurrentValue = 3;
+            this.sliderDiamondsWait.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderDiamondsWait.IsEnabled = true;
             this.sliderDiamondsWait.LabelToShow = "Delay diamonds wait (sec/10) ";
             this.sliderDiamondsWait.Location = new System.Drawing.Point(319, 98);
@@ -420,6 +360,7 @@ partial class MainForm
             // sliderWindowToTop
             // 
             this.sliderWindowToTop.CurrentValue = 2;
+            this.sliderWindowToTop.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderWindowToTop.IsEnabled = true;
             this.sliderWindowToTop.LabelToShow = "Delay window to top (sec/10)";
             this.sliderWindowToTop.Location = new System.Drawing.Point(17, 98);
@@ -434,6 +375,7 @@ partial class MainForm
             // sliderMouseClick
             // 
             this.sliderMouseClick.CurrentValue = 3;
+            this.sliderMouseClick.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderMouseClick.IsEnabled = true;
             this.sliderMouseClick.LabelToShow = "Delay mouse click (sec/10)";
             this.sliderMouseClick.Location = new System.Drawing.Point(319, 12);
@@ -448,6 +390,7 @@ partial class MainForm
             // sliderFindProcess
             // 
             this.sliderFindProcess.CurrentValue = 3;
+            this.sliderFindProcess.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderFindProcess.IsEnabled = true;
             this.sliderFindProcess.LabelToShow = "Delay find process (sec/10)";
             this.sliderFindProcess.Location = new System.Drawing.Point(17, 12);
@@ -462,6 +405,7 @@ partial class MainForm
             // sliderThresholdMapIsland
             // 
             this.sliderThresholdMapIsland.CurrentValue = 1;
+            this.sliderThresholdMapIsland.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderThresholdMapIsland.IsEnabled = true;
             this.sliderThresholdMapIsland.LabelToShow = "Threshold map island text";
             this.sliderThresholdMapIsland.Location = new System.Drawing.Point(623, 356);
@@ -476,6 +420,7 @@ partial class MainForm
             // sliderThresholdButton
             // 
             this.sliderThresholdButton.CurrentValue = 1;
+            this.sliderThresholdButton.ForeColor = System.Drawing.Color.Gainsboro;
             this.sliderThresholdButton.IsEnabled = true;
             this.sliderThresholdButton.LabelToShow = "Threshold buttons";
             this.sliderThresholdButton.Location = new System.Drawing.Point(623, 270);
@@ -486,22 +431,23 @@ partial class MainForm
             this.sliderThresholdButton.Size = new System.Drawing.Size(254, 70);
             this.sliderThresholdButton.Steps = 5;
             this.sliderThresholdButton.TabIndex = 15;
-            this.sliderThresholdButton.Load += new System.EventHandler(this.slider1_Load);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(908, 641);
+            this.ClientSize = new System.Drawing.Size(910, 680);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.EnableNavigationMenu = false;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(910, 680);
             this.MinimumSize = new System.Drawing.Size(400, 320);
             this.Name = "MainForm";
+            this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.gbDebugSection.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -513,15 +459,7 @@ partial class MainForm
     }
 
     #endregion
-
-    private Button BtnPickAll;
     private Button BtnStart;
-    private Button BtnPickDiamonds;
-    private Button BtnOpenMap;
-    private Button BtnCompletePath;
-    private Button BtnNextIsland;
-    private GroupBox gbDebugSection;
-    private Button BtnOpenMapAndNext;
     private GroupBox groupBox2;
     private Button BtnStop;
     private Button BtnStopVote;
