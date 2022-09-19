@@ -33,17 +33,7 @@ internal partial class MainForm : FlatForm, IWinFormsShell
 
     private void KeyManagementListenerBackground_StopRunningEvent(object? sender, KeyCap.Keyboard.KeyboardEventArgs e)
     {
-        if (!_isRunning) return;
-        _isRunning = false;
-        switch (_timerAction)
-        {
-            case TimerActions.CollectAll:
-                BtnStop.ControlInvoke(() => BtnStop.PerformClick());
-                break;
-            case TimerActions.VoteIsland:
-                BtnStopVote.ControlInvoke(() => BtnStopVote.PerformClick());
-                break;
-        }
+        Stop();
     }
 
     private void AdjustUI()
@@ -88,6 +78,22 @@ internal partial class MainForm : FlatForm, IWinFormsShell
         LogTxtBox.PrependTextWithNewLine(e);
     }
 
+    private void Stop()
+    {
+        if (!_isRunning) return;
+        _isRunning = false;
+        _cancellationToken.Cancel();
+        switch (_timerAction)
+        {
+            case TimerActions.CollectAll:
+                BtnStop.ControlInvoke(() => BtnStop.PerformClick());
+                break;
+            case TimerActions.VoteIsland:
+                BtnStopVote.ControlInvoke(() => BtnStopVote.PerformClick());
+                break;
+        }
+    }
+
     private void Timer_Tick(object? sender, EventArgs e)
     {
         if (_isRunning) return;
@@ -96,17 +102,7 @@ internal partial class MainForm : FlatForm, IWinFormsShell
         {
             if (!await _monsterService.FindGameProcess(_cancellationToken.Token))
             {
-                _isRunning = false;
-                switch (_timerAction)
-                {
-                    case TimerActions.CollectAll:
-                        BtnStop.ControlInvoke(() => BtnStop.PerformClick());
-                        break;
-                    case TimerActions.VoteIsland:
-                        BtnStopVote.ControlInvoke(() => BtnStopVote.PerformClick());
-                        break;
-                }
-
+                Stop();
                 return;
             }
 
