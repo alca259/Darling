@@ -1,4 +1,4 @@
-using Alca259.Forms;
+using Alca259.UIControls;
 using Dapplo.Microsoft.Extensions.Hosting.WinForms;
 
 namespace Darling;
@@ -8,8 +8,8 @@ internal partial class MainForm : FlatForm, IWinFormsShell
     private readonly IMySingingMonsterService _monsterService;
     private readonly System.Windows.Forms.Timer _timer;
     private static bool _isRunning = false;
-    private CancellationTokenSource _cancellationToken;
     private static TimerActions _timerAction = TimerActions.CollectAll;
+    private CancellationTokenSource _cancellationToken;
 
     public MainForm(
         IMySingingMonsterService monsterService)
@@ -33,7 +33,7 @@ internal partial class MainForm : FlatForm, IWinFormsShell
 
     private void KeyManagementListenerBackground_StopRunningEvent(object? sender, KeyCap.Keyboard.KeyboardEventArgs e)
     {
-        Stop();
+        Invoke(() => StopActions());
     }
 
     private void AdjustUI()
@@ -51,7 +51,6 @@ internal partial class MainForm : FlatForm, IWinFormsShell
         sliderAfterEnterIsland.SetMilliseconds(AppSettings.Instance.Delays.AfterEnterIsland);
         sliderNextVoteIsland.SetMilliseconds(AppSettings.Instance.Delays.NextVoteIsland);
         sliderMemoryGameBetweenScenes.SetMilliseconds(AppSettings.Instance.Delays.MemoryGameWaitBetweenScreens);
-        //sliderMemoryGameBetweenScenes.SetMilliseconds(AppSettings.Instance.Delays.MemoryGameDiscoverNext(milli));
         sliderThresholdButton.SetMilliseconds((int)Math.Truncate(AppSettings.Instance.ThresholdButtons * 100));
         sliderThresholdMapIsland.SetMilliseconds((int)Math.Truncate(AppSettings.Instance.ThresholdMapIslandText * 100));
 
@@ -68,7 +67,6 @@ internal partial class MainForm : FlatForm, IWinFormsShell
         sliderAfterEnterIsland.SliderChanged += (e, milli) => AppSettings.Instance.Delays.AfterEnterIsland = milli;
         sliderNextVoteIsland.SliderChanged += (e, milli) => AppSettings.Instance.Delays.NextVoteIsland = milli;
         sliderMemoryGameBetweenScenes.SliderChanged += (e, milli) => AppSettings.Instance.Delays.MemoryGameWaitBetweenScreens = milli;
-        //sliderMemoryGameBetweenScenes.SliderChanged += (e, milli) => AppSettings.Instance.Delays.MemoryGameDiscoverNext = milli;
         sliderThresholdButton.SliderChanged += (e, milli) => AppSettings.Instance.ThresholdButtons = milli / 100.0;
         sliderThresholdMapIsland.SliderChanged += (e, milli) => AppSettings.Instance.ThresholdMapIslandText = milli / 100.0;
     }
@@ -76,22 +74,6 @@ internal partial class MainForm : FlatForm, IWinFormsShell
     private void LogService_LogEvent(object? sender, string e)
     {
         LogTxtBox.PrependTextWithNewLine(e);
-    }
-
-    private void Stop()
-    {
-        if (!_isRunning) return;
-        _isRunning = false;
-        _cancellationToken.Cancel();
-        switch (_timerAction)
-        {
-            case TimerActions.CollectAll:
-                BtnStop.ControlInvoke(() => BtnStop.PerformClick());
-                break;
-            case TimerActions.VoteIsland:
-                BtnStopVote.ControlInvoke(() => BtnStopVote.PerformClick());
-                break;
-        }
     }
 
     private void Timer_Tick(object? sender, EventArgs e)
@@ -102,7 +84,7 @@ internal partial class MainForm : FlatForm, IWinFormsShell
         {
             if (!await _monsterService.FindGameProcess(_cancellationToken.Token))
             {
-                Stop();
+                Invoke(() => StopActions());
                 return;
             }
 
@@ -112,6 +94,12 @@ internal partial class MainForm : FlatForm, IWinFormsShell
                     await _monsterService.RecoverAllResources(_cancellationToken.Token);
                     await Task.Delay(AppSettings.Instance.Delays.DiamondsWait, _cancellationToken.Token);
                     await _monsterService.RecoverDiamonds(_cancellationToken.Token);
+                    await Task.Delay(AppSettings.Instance.Delays.DiamondsWait, _cancellationToken.Token);
+                    await _monsterService.RecoverFood(_cancellationToken.Token);
+                    await _monsterService.RecoverFood(_cancellationToken.Token);
+                    await _monsterService.RecoverFood(_cancellationToken.Token);
+                    await _monsterService.RecoverFood(_cancellationToken.Token);
+                    await _monsterService.RecoverFood(_cancellationToken.Token);
                     await Task.Delay(AppSettings.Instance.Delays.IslandStay, _cancellationToken.Token);
                     await _monsterService.EnterNextIsland(_cancellationToken.Token);
                     await Task.Delay(AppSettings.Instance.Delays.AfterEnterIsland, _cancellationToken.Token);
@@ -145,17 +133,14 @@ internal partial class MainForm : FlatForm, IWinFormsShell
 
     private void BtnStop_Click(object sender, EventArgs e)
     {
-        if (!_timer.Enabled) return;
-        _timer.Stop();
-        BtnStart.Enabled = true;
-        BtnStop.Enabled = false;
-        BtnStartVote.Enabled = true;
-        BtnStopVote.Enabled = false;
+        StopActions();
     }
 
     private void BtnStartVote_Click(object sender, EventArgs e)
     {
         if (_timer.Enabled) return;
+        _cancellationToken = new CancellationTokenSource();
+
         _timerAction = TimerActions.VoteIsland;
         _timer.Start();
         BtnStart.Enabled = false;
@@ -166,11 +151,20 @@ internal partial class MainForm : FlatForm, IWinFormsShell
 
     private void BtnStopVote_Click(object sender, EventArgs e)
     {
-        if (!_timer.Enabled) return;
-        _timer.Stop();
+        StopActions();
+    }
+
+    private void StopActions()
+    {
+        if (!_isRunning) return;
+        _isRunning = false;
+
         BtnStart.Enabled = true;
         BtnStop.Enabled = false;
         BtnStartVote.Enabled = true;
         BtnStopVote.Enabled = false;
+
+        _cancellationToken?.Cancel();
+        if (_timer.Enabled) _timer.Stop();
     }
 }

@@ -73,6 +73,19 @@ internal class MySingingMonsterService : IMySingingMonsterService
         await MouseHelper.LeftClick(token: token);
     }
 
+    public async Task RecoverFood(CancellationToken token)
+    {
+        if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
+        await _logService.Log("RecoverFood");
+
+        await TakeCleanPicture(token);
+
+        var found = FindSubImage(AppConstants.ImageElements.ButtonGetFood, AppSettings.Instance.ThresholdButtons);
+        if (!found) return;
+
+        await MouseHelper.LeftClick(token: token);
+    }
+
     public async Task EnterNextIsland(CancellationToken token)
     {
         if (!AppSettings.Instance.CurrentProcess.IsProcessActive()) return;
@@ -129,6 +142,11 @@ internal class MySingingMonsterService : IMySingingMonsterService
         if (!found)
         {
             found = FindSubImage(AppConstants.ImageElements.ButtonGetMapOcuppedSpecial1, AppSettings.Instance.ThresholdMapIslandText);
+        }
+
+        if (!found)
+        {
+            found = FindSubImage(AppConstants.ImageElements.ButtonGetMapOcuppedSpecial2, AppSettings.Instance.ThresholdMapIslandText);
         }
 
         if (!found)
