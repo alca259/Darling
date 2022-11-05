@@ -5,7 +5,7 @@ internal interface IMySingingMonsterService
     Task<bool> FindGameProcess(CancellationToken token);
     Task RecoverAllResources(CancellationToken token);
     Task RecoverDiamonds(CancellationToken token);
-    Task RecoverFood(CancellationToken token);
+    Task<bool> RecoverFood(CancellationToken token);
     Task EnterNextIsland(CancellationToken token);
     Task<bool> OpenMap(CancellationToken token);
     Task NavigateNextIsland(CancellationToken token);

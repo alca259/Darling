@@ -72,11 +72,11 @@ internal partial class MainForm : FlatForm, IWinFormsShell
 
                     if (switchFood.Checked)
                     {
-                        await _monsterService.RecoverFood(_cancellationToken.Token);
-                        await _monsterService.RecoverFood(_cancellationToken.Token);
-                        await _monsterService.RecoverFood(_cancellationToken.Token);
-                        await _monsterService.RecoverFood(_cancellationToken.Token);
-                        await _monsterService.RecoverFood(_cancellationToken.Token);
+                        bool foodFound = false;
+                        do
+                        {
+                            foodFound = await _monsterService.RecoverFood(_cancellationToken.Token);
+                        } while (foodFound);
                     }
 
                     await Task.Delay(_optionsMonitor.CurrentValue.GetDelay(AppOptionsDelays.Keys.ISLAND_STAY), _cancellationToken.Token);

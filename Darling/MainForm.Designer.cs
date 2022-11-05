@@ -36,10 +36,13 @@ partial class MainForm
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.LogTxtBox = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.flatTextBox1 = new Alca259.UIControls.UserControls.FlatTextBox();
-            this.themeGroupBox2 = new Alca259.UIControls.UserControls.ThemeGroupBox();
+            this.themeGroupBox2 = new System.Windows.Forms.GroupBox();
+            this.switchFireTorch = new Alca259.UIControls.UserControls.SwitchCheckBox();
+            this.switchVoteUp = new Alca259.UIControls.UserControls.SwitchCheckBox();
+            this.themeLabel4 = new Alca259.UIControls.UserControls.ThemeLabel();
+            this.themeLabel5 = new Alca259.UIControls.UserControls.ThemeLabel();
             this.themeHorizontalSeparator2 = new Alca259.UIControls.UserControls.ThemeHorizontalSeparator();
-            this.themeGroupBox1 = new Alca259.UIControls.UserControls.ThemeGroupBox();
+            this.themeGroupBox1 = new System.Windows.Forms.GroupBox();
             this.themeHorizontalSeparator1 = new Alca259.UIControls.UserControls.ThemeHorizontalSeparator();
             this.switchMoney = new Alca259.UIControls.UserControls.SwitchCheckBox();
             this.switchFood = new Alca259.UIControls.UserControls.SwitchCheckBox();
@@ -47,10 +50,6 @@ partial class MainForm
             this.themeLabel2 = new Alca259.UIControls.UserControls.ThemeLabel();
             this.themeLabel1 = new Alca259.UIControls.UserControls.ThemeLabel();
             this.themeLabel3 = new Alca259.UIControls.UserControls.ThemeLabel();
-            this.switchFireTorch = new Alca259.UIControls.UserControls.SwitchCheckBox();
-            this.switchVoteUp = new Alca259.UIControls.UserControls.SwitchCheckBox();
-            this.themeLabel4 = new Alca259.UIControls.UserControls.ThemeLabel();
-            this.themeLabel5 = new Alca259.UIControls.UserControls.ThemeLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.themeGroupBox2.SuspendLayout();
@@ -124,62 +123,41 @@ partial class MainForm
             this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 27);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 240F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(908, 652);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
             // LogTxtBox
             // 
             this.LogTxtBox.BackColor = System.Drawing.Color.Black;
+            this.LogTxtBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LogTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LogTxtBox.ForeColor = System.Drawing.Color.White;
-            this.LogTxtBox.Location = new System.Drawing.Point(3, 355);
+            this.LogTxtBox.Location = new System.Drawing.Point(3, 243);
             this.LogTxtBox.MaxLength = 0;
             this.LogTxtBox.Multiline = true;
             this.LogTxtBox.Name = "LogTxtBox";
             this.LogTxtBox.ReadOnly = true;
             this.LogTxtBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.LogTxtBox.Size = new System.Drawing.Size(902, 294);
+            this.LogTxtBox.Size = new System.Drawing.Size(902, 406);
             this.LogTxtBox.TabIndex = 8;
+            this.LogTxtBox.TabStop = false;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.flatTextBox1);
             this.panel2.Controls.Add(this.themeGroupBox2);
             this.panel2.Controls.Add(this.themeGroupBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(902, 346);
+            this.panel2.Size = new System.Drawing.Size(902, 234);
             this.panel2.TabIndex = 9;
-            // 
-            // flatTextBox1
-            // 
-            this.flatTextBox1.BackColor = System.Drawing.Color.Black;
-            this.flatTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(96)))), ((int)(((byte)(231)))));
-            this.flatTextBox1.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(98)))), ((int)(((byte)(169)))));
-            this.flatTextBox1.BorderSize = 1;
-            this.flatTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.flatTextBox1.ForeColor = System.Drawing.Color.DimGray;
-            this.flatTextBox1.Location = new System.Drawing.Point(36, 225);
-            this.flatTextBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.flatTextBox1.Multiline = true;
-            this.flatTextBox1.Name = "flatTextBox1";
-            this.flatTextBox1.Padding = new System.Windows.Forms.Padding(7);
-            this.flatTextBox1.PasswordChar = false;
-            this.flatTextBox1.Size = new System.Drawing.Size(291, 62);
-            this.flatTextBox1.TabIndex = 12;
-            this.flatTextBox1.Texts = "";
-            this.flatTextBox1.UnderlinedStyle = false;
             // 
             // themeGroupBox2
             // 
             this.themeGroupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.themeGroupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
-            this.themeGroupBox2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.themeGroupBox2.BorderRadius = 10;
-            this.themeGroupBox2.BorderWidth = 1;
             this.themeGroupBox2.Controls.Add(this.switchFireTorch);
             this.themeGroupBox2.Controls.Add(this.switchVoteUp);
             this.themeGroupBox2.Controls.Add(this.themeLabel4);
@@ -187,15 +165,67 @@ partial class MainForm
             this.themeGroupBox2.Controls.Add(this.themeHorizontalSeparator2);
             this.themeGroupBox2.Controls.Add(this.BtnStopVote);
             this.themeGroupBox2.Controls.Add(this.BtnStartVote);
-            this.themeGroupBox2.DrawBorder = true;
             this.themeGroupBox2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.themeGroupBox2.LabelIndent = 20;
             this.themeGroupBox2.Location = new System.Drawing.Point(612, 27);
             this.themeGroupBox2.Name = "themeGroupBox2";
             this.themeGroupBox2.Size = new System.Drawing.Size(251, 129);
             this.themeGroupBox2.TabIndex = 11;
             this.themeGroupBox2.TabStop = false;
             this.themeGroupBox2.Text = "Auto vote";
+            // 
+            // switchFireTorch
+            // 
+            this.switchFireTorch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.switchFireTorch.AutoSize = true;
+            this.switchFireTorch.Checked = true;
+            this.switchFireTorch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.switchFireTorch.Location = new System.Drawing.Point(204, 75);
+            this.switchFireTorch.MinimumSize = new System.Drawing.Size(32, 16);
+            this.switchFireTorch.Name = "switchFireTorch";
+            this.switchFireTorch.OffBackColor = System.Drawing.Color.Gray;
+            this.switchFireTorch.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.switchFireTorch.OnBackColor = System.Drawing.Color.Orange;
+            this.switchFireTorch.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.switchFireTorch.Size = new System.Drawing.Size(32, 16);
+            this.switchFireTorch.TabIndex = 12;
+            this.switchFireTorch.UseVisualStyleBackColor = true;
+            // 
+            // switchVoteUp
+            // 
+            this.switchVoteUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.switchVoteUp.AutoSize = true;
+            this.switchVoteUp.Checked = true;
+            this.switchVoteUp.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.switchVoteUp.Location = new System.Drawing.Point(204, 101);
+            this.switchVoteUp.MinimumSize = new System.Drawing.Size(32, 16);
+            this.switchVoteUp.Name = "switchVoteUp";
+            this.switchVoteUp.OffBackColor = System.Drawing.Color.Gray;
+            this.switchVoteUp.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.switchVoteUp.OnBackColor = System.Drawing.Color.DarkOrchid;
+            this.switchVoteUp.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.switchVoteUp.Size = new System.Drawing.Size(32, 16);
+            this.switchVoteUp.TabIndex = 14;
+            this.switchVoteUp.UseVisualStyleBackColor = true;
+            // 
+            // themeLabel4
+            // 
+            this.themeLabel4.AutoSize = true;
+            this.themeLabel4.ForeColor = System.Drawing.Color.Gainsboro;
+            this.themeLabel4.Location = new System.Drawing.Point(16, 102);
+            this.themeLabel4.Name = "themeLabel4";
+            this.themeLabel4.Size = new System.Drawing.Size(47, 15);
+            this.themeLabel4.TabIndex = 13;
+            this.themeLabel4.Text = "Vote up";
+            // 
+            // themeLabel5
+            // 
+            this.themeLabel5.AutoSize = true;
+            this.themeLabel5.ForeColor = System.Drawing.Color.Gainsboro;
+            this.themeLabel5.Location = new System.Drawing.Point(16, 75);
+            this.themeLabel5.Name = "themeLabel5";
+            this.themeLabel5.Size = new System.Drawing.Size(57, 15);
+            this.themeLabel5.TabIndex = 11;
+            this.themeLabel5.Text = "Fire torch";
             // 
             // themeHorizontalSeparator2
             // 
@@ -212,9 +242,6 @@ partial class MainForm
             // themeGroupBox1
             // 
             this.themeGroupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
-            this.themeGroupBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.themeGroupBox1.BorderRadius = 10;
-            this.themeGroupBox1.BorderWidth = 1;
             this.themeGroupBox1.Controls.Add(this.themeHorizontalSeparator1);
             this.themeGroupBox1.Controls.Add(this.BtnStop);
             this.themeGroupBox1.Controls.Add(this.BtnStart);
@@ -224,9 +251,7 @@ partial class MainForm
             this.themeGroupBox1.Controls.Add(this.themeLabel2);
             this.themeGroupBox1.Controls.Add(this.themeLabel1);
             this.themeGroupBox1.Controls.Add(this.themeLabel3);
-            this.themeGroupBox1.DrawBorder = true;
             this.themeGroupBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.themeGroupBox1.LabelIndent = 20;
             this.themeGroupBox1.Location = new System.Drawing.Point(36, 27);
             this.themeGroupBox1.Name = "themeGroupBox1";
             this.themeGroupBox1.Size = new System.Drawing.Size(251, 172);
@@ -327,60 +352,6 @@ partial class MainForm
             this.themeLabel3.TabIndex = 4;
             this.themeLabel3.Text = "Pick food";
             // 
-            // switchFireTorch
-            // 
-            this.switchFireTorch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.switchFireTorch.AutoSize = true;
-            this.switchFireTorch.Checked = true;
-            this.switchFireTorch.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.switchFireTorch.Location = new System.Drawing.Point(204, 75);
-            this.switchFireTorch.MinimumSize = new System.Drawing.Size(32, 16);
-            this.switchFireTorch.Name = "switchFireTorch";
-            this.switchFireTorch.OffBackColor = System.Drawing.Color.Gray;
-            this.switchFireTorch.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.switchFireTorch.OnBackColor = System.Drawing.Color.Orange;
-            this.switchFireTorch.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.switchFireTorch.Size = new System.Drawing.Size(32, 16);
-            this.switchFireTorch.TabIndex = 12;
-            this.switchFireTorch.UseVisualStyleBackColor = true;
-            // 
-            // switchVoteUp
-            // 
-            this.switchVoteUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.switchVoteUp.AutoSize = true;
-            this.switchVoteUp.Checked = true;
-            this.switchVoteUp.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.switchVoteUp.Location = new System.Drawing.Point(204, 101);
-            this.switchVoteUp.MinimumSize = new System.Drawing.Size(32, 16);
-            this.switchVoteUp.Name = "switchVoteUp";
-            this.switchVoteUp.OffBackColor = System.Drawing.Color.Gray;
-            this.switchVoteUp.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.switchVoteUp.OnBackColor = System.Drawing.Color.DarkOrchid;
-            this.switchVoteUp.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.switchVoteUp.Size = new System.Drawing.Size(32, 16);
-            this.switchVoteUp.TabIndex = 14;
-            this.switchVoteUp.UseVisualStyleBackColor = true;
-            // 
-            // themeLabel4
-            // 
-            this.themeLabel4.AutoSize = true;
-            this.themeLabel4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.themeLabel4.Location = new System.Drawing.Point(16, 102);
-            this.themeLabel4.Name = "themeLabel4";
-            this.themeLabel4.Size = new System.Drawing.Size(47, 15);
-            this.themeLabel4.TabIndex = 13;
-            this.themeLabel4.Text = "Vote up";
-            // 
-            // themeLabel5
-            // 
-            this.themeLabel5.AutoSize = true;
-            this.themeLabel5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.themeLabel5.Location = new System.Drawing.Point(16, 75);
-            this.themeLabel5.Name = "themeLabel5";
-            this.themeLabel5.Size = new System.Drawing.Size(57, 15);
-            this.themeLabel5.TabIndex = 11;
-            this.themeLabel5.Text = "Fire torch";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -421,11 +392,10 @@ partial class MainForm
     private Alca259.UIControls.UserControls.ThemeLabel themeLabel3;
     private Alca259.UIControls.UserControls.SwitchCheckBox switchDiamonds;
     private Alca259.UIControls.UserControls.ThemeLabel themeLabel2;
-    private Alca259.UIControls.UserControls.ThemeGroupBox themeGroupBox1;
-    private Alca259.UIControls.UserControls.ThemeGroupBox themeGroupBox2;
+    private GroupBox themeGroupBox1;
+    private GroupBox themeGroupBox2;
     private Alca259.UIControls.UserControls.ThemeHorizontalSeparator themeHorizontalSeparator1;
     private Alca259.UIControls.UserControls.ThemeHorizontalSeparator themeHorizontalSeparator2;
-    private Alca259.UIControls.UserControls.FlatTextBox flatTextBox1;
     private Alca259.UIControls.UserControls.SwitchCheckBox switchFireTorch;
     private Alca259.UIControls.UserControls.SwitchCheckBox switchVoteUp;
     private Alca259.UIControls.UserControls.ThemeLabel themeLabel4;

@@ -5,8 +5,6 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Darling", "Darling\Darling.csproj", "{4F78DAFD-D2BF-4B9B-BD59-3875831E19CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alca259.UIControls", "..\FlatForm\Alca259.UIControls\Alca259.UIControls.csproj", "{507BF380-CF35-4F44-88EE-FD131460D23F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{4F78DAFD-D2BF-4B9B-BD59-3875831E19CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F78DAFD-D2BF-4B9B-BD59-3875831E19CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F78DAFD-D2BF-4B9B-BD59-3875831E19CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{507BF380-CF35-4F44-88EE-FD131460D23F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{507BF380-CF35-4F44-88EE-FD131460D23F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{507BF380-CF35-4F44-88EE-FD131460D23F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{507BF380-CF35-4F44-88EE-FD131460D23F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -73,17 +73,18 @@ internal class MySingingMonsterService : IMySingingMonsterService
         await MouseHelper.LeftClick(token: token);
     }
 
-    public async Task RecoverFood(CancellationToken token)
+    public async Task<bool> RecoverFood(CancellationToken token)
     {
-        if (!AppInstance.Instance.CurrentProcess.IsProcessActive()) return;
+        if (!AppInstance.Instance.CurrentProcess.IsProcessActive()) return false;
         await _logService.Log("RecoverFood");
 
         await TakeCleanPicture(token);
 
         var found = FindSubImage(AppConstants.ImageElements.ButtonGetFood, _optionsMonitor.CurrentValue.ThresholdButtons);
-        if (!found) return;
+        if (!found) return false;
 
         await MouseHelper.LeftClick(token: token);
+        return true;
     }
 
     public async Task EnterNextIsland(CancellationToken token)
