@@ -1,4 +1,5 @@
-﻿global using Darling.Extensions;
+﻿global using Darling.DTOs;
+global using Darling.Extensions;
 global using Darling.Helpers;
 global using Darling.Interfaces;
 global using Darling.Services;

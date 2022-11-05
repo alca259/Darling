@@ -1,23 +1,27 @@
 using Alca259.UIControls;
 using Dapplo.Microsoft.Extensions.Hosting.WinForms;
+using Microsoft.Extensions.Options;
 
 namespace Darling;
 
 internal partial class MainForm : FlatForm, IWinFormsShell
 {
     private readonly IMySingingMonsterService _monsterService;
+    private readonly IOptionsMonitor<AppOptions> _optionsMonitor;
     private readonly System.Windows.Forms.Timer _timer;
     private static bool _isRunning = false;
     private static TimerActions _timerAction = TimerActions.CollectAll;
     private CancellationTokenSource _cancellationToken;
 
     public MainForm(
-        IMySingingMonsterService monsterService)
+        IMySingingMonsterService monsterService,
+        IOptionsMonitor<AppOptions> optionsMonitor)
     {
         InitializeComponent();
         _cancellationToken = new CancellationTokenSource();
 
         _monsterService = monsterService;
+        _optionsMonitor = optionsMonitor;
         _timer = new System.Windows.Forms.Timer
         {
             Interval = (int)TimeSpan.FromSeconds(1).TotalMilliseconds,
@@ -27,56 +31,19 @@ internal partial class MainForm : FlatForm, IWinFormsShell
 
         LogService.LogEvent += LogService_LogEvent;
         KeyManagementListenerBackground.StopRunningEvent += KeyManagementListenerBackground_StopRunningEvent;
-
-        AdjustUI();
     }
 
-    private void KeyManagementListenerBackground_StopRunningEvent(object? sender, KeyCap.Keyboard.KeyboardEventArgs e)
+    private void KeyManagementListenerBackground_StopRunningEvent(object sender, KeyCap.Keyboard.KeyboardEventArgs e)
     {
         Invoke(() => StopActions());
     }
 
-    private void AdjustUI()
-    {
-        sliderFindProcess.SetMilliseconds(AppSettings.Instance.Delays.FindProcess);
-        sliderMouseClick.SetMilliseconds(AppSettings.Instance.Delays.MouseClick);
-        sliderWindowToTop.SetMilliseconds(AppSettings.Instance.Delays.WindowToTop);
-        sliderDiamondsWait.SetMilliseconds(AppSettings.Instance.Delays.DiamondsWait);
-        sliderWaitBetweenActions.SetMilliseconds(AppSettings.Instance.Delays.DefaultWaitBetweenActions);
-        sliderIslandStay.SetMilliseconds(AppSettings.Instance.Delays.IslandStay);
-        sliderFindButton.SetMilliseconds(AppSettings.Instance.Delays.IslandFindButton);
-        sliderPopupWait.SetMilliseconds(AppSettings.Instance.Delays.IslandPopupWait);
-        sliderNextIsland.SetMilliseconds(AppSettings.Instance.Delays.NextIsland);
-        sliderEnterIsland.SetMilliseconds(AppSettings.Instance.Delays.EnterIsland);
-        sliderAfterEnterIsland.SetMilliseconds(AppSettings.Instance.Delays.AfterEnterIsland);
-        sliderNextVoteIsland.SetMilliseconds(AppSettings.Instance.Delays.NextVoteIsland);
-        sliderMemoryGameBetweenScenes.SetMilliseconds(AppSettings.Instance.Delays.MemoryGameWaitBetweenScreens);
-        sliderThresholdButton.SetMilliseconds((int)Math.Truncate(AppSettings.Instance.ThresholdButtons * 100));
-        sliderThresholdMapIsland.SetMilliseconds((int)Math.Truncate(AppSettings.Instance.ThresholdMapIslandText * 100));
-
-        sliderFindProcess.SliderChanged += (e, milli) => AppSettings.Instance.Delays.FindProcess = milli;
-        sliderMouseClick.SliderChanged += (e, milli) => AppSettings.Instance.Delays.MouseClick = milli;
-        sliderWindowToTop.SliderChanged += (e, milli) => AppSettings.Instance.Delays.WindowToTop = milli;
-        sliderDiamondsWait.SliderChanged += (e, milli) => AppSettings.Instance.Delays.DiamondsWait = milli;
-        sliderWaitBetweenActions.SliderChanged += (e, milli) => AppSettings.Instance.Delays.DefaultWaitBetweenActions = milli;
-        sliderIslandStay.SliderChanged += (e, milli) => AppSettings.Instance.Delays.IslandStay = milli;
-        sliderFindButton.SliderChanged += (e, milli) => AppSettings.Instance.Delays.IslandFindButton = milli;
-        sliderPopupWait.SliderChanged += (e, milli) => AppSettings.Instance.Delays.IslandPopupWait = milli;
-        sliderNextIsland.SliderChanged += (e, milli) => AppSettings.Instance.Delays.NextIsland = milli;
-        sliderEnterIsland.SliderChanged += (e, milli) => AppSettings.Instance.Delays.EnterIsland = milli;
-        sliderAfterEnterIsland.SliderChanged += (e, milli) => AppSettings.Instance.Delays.AfterEnterIsland = milli;
-        sliderNextVoteIsland.SliderChanged += (e, milli) => AppSettings.Instance.Delays.NextVoteIsland = milli;
-        sliderMemoryGameBetweenScenes.SliderChanged += (e, milli) => AppSettings.Instance.Delays.MemoryGameWaitBetweenScreens = milli;
-        sliderThresholdButton.SliderChanged += (e, milli) => AppSettings.Instance.ThresholdButtons = milli / 100.0;
-        sliderThresholdMapIsland.SliderChanged += (e, milli) => AppSettings.Instance.ThresholdMapIslandText = milli / 100.0;
-    }
-
-    private void LogService_LogEvent(object? sender, string e)
+    private void LogService_LogEvent(object sender, string e)
     {
         LogTxtBox.PrependTextWithNewLine(e);
     }
 
-    private void Timer_Tick(object? sender, EventArgs e)
+    private void Timer_Tick(object sender, EventArgs e)
     {
         if (_isRunning) return;
         _isRunning = true;
@@ -91,26 +58,46 @@ internal partial class MainForm : FlatForm, IWinFormsShell
             switch (_timerAction)
             {
                 case TimerActions.CollectAll:
-                    await _monsterService.RecoverAllResources(_cancellationToken.Token);
-                    await Task.Delay(AppSettings.Instance.Delays.DiamondsWait, _cancellationToken.Token);
-                    await _monsterService.RecoverDiamonds(_cancellationToken.Token);
-                    await Task.Delay(AppSettings.Instance.Delays.DiamondsWait, _cancellationToken.Token);
-                    await _monsterService.RecoverFood(_cancellationToken.Token);
-                    await _monsterService.RecoverFood(_cancellationToken.Token);
-                    await _monsterService.RecoverFood(_cancellationToken.Token);
-                    await _monsterService.RecoverFood(_cancellationToken.Token);
-                    await _monsterService.RecoverFood(_cancellationToken.Token);
-                    await Task.Delay(AppSettings.Instance.Delays.IslandStay, _cancellationToken.Token);
+                    if (switchMoney.Checked)
+                    {
+                        await _monsterService.RecoverAllResources(_cancellationToken.Token);
+                        await Task.Delay(_optionsMonitor.CurrentValue.GetDelay(AppOptionsDelays.Keys.DIAMONDS_WAIT), _cancellationToken.Token);
+                    }
+
+                    if (switchDiamonds.Checked)
+                    {
+                        await _monsterService.RecoverDiamonds(_cancellationToken.Token);
+                        await Task.Delay(_optionsMonitor.CurrentValue.GetDelay(AppOptionsDelays.Keys.DIAMONDS_WAIT), _cancellationToken.Token);
+                    }
+
+                    if (switchFood.Checked)
+                    {
+                        await _monsterService.RecoverFood(_cancellationToken.Token);
+                        await _monsterService.RecoverFood(_cancellationToken.Token);
+                        await _monsterService.RecoverFood(_cancellationToken.Token);
+                        await _monsterService.RecoverFood(_cancellationToken.Token);
+                        await _monsterService.RecoverFood(_cancellationToken.Token);
+                    }
+
+                    await Task.Delay(_optionsMonitor.CurrentValue.GetDelay(AppOptionsDelays.Keys.ISLAND_STAY), _cancellationToken.Token);
                     await _monsterService.EnterNextIsland(_cancellationToken.Token);
-                    await Task.Delay(AppSettings.Instance.Delays.AfterEnterIsland, _cancellationToken.Token);
+                    await Task.Delay(_optionsMonitor.CurrentValue.GetDelay(AppOptionsDelays.Keys.AFTER_ENTER_ISLAND), _cancellationToken.Token);
                     break;
                 case TimerActions.VoteIsland:
-                    await _monsterService.VoteUpIsland(_cancellationToken.Token);
-                    await Task.Delay(AppSettings.Instance.Delays.DiamondsWait, _cancellationToken.Token);
-                    await _monsterService.FireTorch(_cancellationToken.Token);
-                    await Task.Delay(AppSettings.Instance.Delays.IslandStay, _cancellationToken.Token);
+                    if (switchVoteUp.Checked)
+                    {
+                        await _monsterService.VoteUpIsland(_cancellationToken.Token);
+                        await Task.Delay(_optionsMonitor.CurrentValue.GetDelay(AppOptionsDelays.Keys.DIAMONDS_WAIT), _cancellationToken.Token);
+                    }
+
+                    if (switchFireTorch.Checked)
+                    {
+                        await _monsterService.FireTorch(_cancellationToken.Token);
+                        await Task.Delay(_optionsMonitor.CurrentValue.GetDelay(AppOptionsDelays.Keys.ISLAND_STAY), _cancellationToken.Token);
+                    }
+
                     await _monsterService.NextVoteIsland(_cancellationToken.Token);
-                    await Task.Delay(AppSettings.Instance.Delays.NextVoteIsland, _cancellationToken.Token);
+                    await Task.Delay(_optionsMonitor.CurrentValue.GetDelay(AppOptionsDelays.Keys.NEXT_VOTE_ISLAND), _cancellationToken.Token);
                     break;
             }
 

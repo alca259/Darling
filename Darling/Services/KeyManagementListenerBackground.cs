@@ -25,12 +25,12 @@ internal class KeyManagementListenerBackground : IHostedService
             {
                 try
                 {
-                    KeyListenerApp keyListener = new KeyListenerApp(null);
+                    KeyListenerApp keyListener = new(null);
                     keyListener.KeyEvent += KeyListener_KeyEvent;
                     keyListener.Start();
 
                     // Simulate real work is being done
-                    await Task.Delay(1000);
+                    await Task.Delay(1000, cancellationToken);
                 }
                 catch (Exception ex)
                 {
@@ -52,34 +52,38 @@ internal class KeyManagementListenerBackground : IHostedService
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Key listener
+    /// </summary>
+    /// <remarks>
+    /// All the relevant info of the event
+    ///
+    /// Key press/hold/release, and the key itself
+    /// Debug.WriteLine($"{e.EventType}");
+    /// Debug.WriteLine($"{e.EventKeyCode}");
+    /// Debug.WriteLine($"{e.ScanCode}");
+    ///
+    /// If this event generates character input, you can also do this
+    /// if (e.IsCharInput)
+    /// {
+    ///     Debug.WriteLine(e.Characters);
+    /// }
+    ///
+    /// All the modifier keys
+    /// Debug.WriteLine("Shift: {0}", e.KeyboardState.Shift);
+    /// Debug.WriteLine("Ctrl: {0}", e.KeyboardState.Ctrl);
+    /// Debug.WriteLine("Alt: {0}", e.KeyboardState.Alt);
+    /// Debug.WriteLine("Win: {0}", e.KeyboardState.Win);
+    /// </remarks>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void KeyListener_KeyEvent(object? sender, KeyboardEventArgs e)
     {
         if (e.KeyboardState.Ctrl && e.EventKeyCode == KeyCap.Keys.F7)
         {
-            StopRunningEvent?.Invoke(this, e);
+            StopRunningEvent?.Invoke(null, e);
+            // Stop propagation
+            e.Handled = true;
         }
-
-        // Stop propagation
-        e.Handled = true;
-        return;
-
-        //All the relevant info of the event
-
-        //Key press/hold/release, and the key itself
-        //Debug.WriteLine($"{e.EventType}");
-        //Debug.WriteLine($"{e.EventKeyCode}");
-        //Debug.WriteLine($"{e.ScanCode}");
-
-        //If this event generates character input, you can also do this
-        //if (e.IsCharInput)
-        //{
-        //    Debug.WriteLine(e.Characters);
-        //}
-
-        ////All the modifier keys
-        //Debug.WriteLine("Shift: {0}", e.KeyboardState.Shift);
-        //Debug.WriteLine("Ctrl: {0}", e.KeyboardState.Ctrl);
-        //Debug.WriteLine("Alt: {0}", e.KeyboardState.Alt);
-        //Debug.WriteLine("Win: {0}", e.KeyboardState.Win);
     }
 }

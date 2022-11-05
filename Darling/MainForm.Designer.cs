@@ -30,35 +30,31 @@ partial class MainForm
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.BtnStart = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtnStop = new System.Windows.Forms.Button();
             this.BtnStopVote = new System.Windows.Forms.Button();
             this.BtnStartVote = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.LogTxtBox = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.sliderNextVoteIsland = new Darling.Controls.Slider();
-            this.sliderAfterEnterIsland = new Darling.Controls.Slider();
-            this.sliderEnterIsland = new Darling.Controls.Slider();
-            this.sliderNextIsland = new Darling.Controls.Slider();
-            this.sliderPopupWait = new Darling.Controls.Slider();
-            this.sliderFindButton = new Darling.Controls.Slider();
-            this.sliderIslandStay = new Darling.Controls.Slider();
-            this.sliderMemoryGameBetweenScenes = new Darling.Controls.Slider();
-            this.sliderWaitBetweenActions = new Darling.Controls.Slider();
-            this.sliderDiamondsWait = new Darling.Controls.Slider();
-            this.sliderWindowToTop = new Darling.Controls.Slider();
-            this.sliderMouseClick = new Darling.Controls.Slider();
-            this.sliderFindProcess = new Darling.Controls.Slider();
-            this.sliderThresholdMapIsland = new Darling.Controls.Slider();
-            this.sliderThresholdButton = new Darling.Controls.Slider();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.flatTextBox1 = new Alca259.UIControls.UserControls.FlatTextBox();
+            this.themeGroupBox2 = new Alca259.UIControls.UserControls.ThemeGroupBox();
+            this.themeHorizontalSeparator2 = new Alca259.UIControls.UserControls.ThemeHorizontalSeparator();
+            this.themeGroupBox1 = new Alca259.UIControls.UserControls.ThemeGroupBox();
+            this.themeHorizontalSeparator1 = new Alca259.UIControls.UserControls.ThemeHorizontalSeparator();
+            this.switchMoney = new Alca259.UIControls.UserControls.SwitchCheckBox();
+            this.switchFood = new Alca259.UIControls.UserControls.SwitchCheckBox();
+            this.switchDiamonds = new Alca259.UIControls.UserControls.SwitchCheckBox();
+            this.themeLabel2 = new Alca259.UIControls.UserControls.ThemeLabel();
+            this.themeLabel1 = new Alca259.UIControls.UserControls.ThemeLabel();
+            this.themeLabel3 = new Alca259.UIControls.UserControls.ThemeLabel();
+            this.switchFireTorch = new Alca259.UIControls.UserControls.SwitchCheckBox();
+            this.switchVoteUp = new Alca259.UIControls.UserControls.SwitchCheckBox();
+            this.themeLabel4 = new Alca259.UIControls.UserControls.ThemeLabel();
+            this.themeLabel5 = new Alca259.UIControls.UserControls.ThemeLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.themeGroupBox2.SuspendLayout();
+            this.themeGroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnStart
@@ -66,25 +62,13 @@ partial class MainForm
             this.BtnStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
             this.BtnStart.FlatAppearance.BorderSize = 0;
             this.BtnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnStart.Location = new System.Drawing.Point(6, 22);
+            this.BtnStart.Location = new System.Drawing.Point(16, 28);
             this.BtnStart.Name = "BtnStart";
             this.BtnStart.Size = new System.Drawing.Size(82, 23);
             this.BtnStart.TabIndex = 6;
             this.BtnStart.Text = "Start";
             this.BtnStart.UseVisualStyleBackColor = false;
             this.BtnStart.Click += new System.EventHandler(this.BtnStart_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.BtnStop);
-            this.groupBox2.Controls.Add(this.BtnStart);
-            this.groupBox2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.groupBox2.Location = new System.Drawing.Point(9, 9);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(203, 54);
-            this.groupBox2.TabIndex = 7;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Auto collect";
             // 
             // BtnStop
             // 
@@ -93,7 +77,7 @@ partial class MainForm
             this.BtnStop.Enabled = false;
             this.BtnStop.FlatAppearance.BorderSize = 0;
             this.BtnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnStop.Location = new System.Drawing.Point(94, 22);
+            this.BtnStop.Location = new System.Drawing.Point(133, 28);
             this.BtnStop.Name = "BtnStop";
             this.BtnStop.Size = new System.Drawing.Size(103, 23);
             this.BtnStop.TabIndex = 7;
@@ -108,7 +92,7 @@ partial class MainForm
             this.BtnStopVote.Enabled = false;
             this.BtnStopVote.FlatAppearance.BorderSize = 0;
             this.BtnStopVote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnStopVote.Location = new System.Drawing.Point(94, 22);
+            this.BtnStopVote.Location = new System.Drawing.Point(123, 29);
             this.BtnStopVote.Name = "BtnStopVote";
             this.BtnStopVote.Size = new System.Drawing.Size(113, 23);
             this.BtnStopVote.TabIndex = 9;
@@ -121,7 +105,7 @@ partial class MainForm
             this.BtnStartVote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
             this.BtnStartVote.FlatAppearance.BorderSize = 0;
             this.BtnStartVote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnStartVote.Location = new System.Drawing.Point(6, 22);
+            this.BtnStartVote.Location = new System.Drawing.Point(16, 29);
             this.BtnStartVote.Name = "BtnStartVote";
             this.BtnStartVote.Size = new System.Drawing.Size(82, 23);
             this.BtnStartVote.TabIndex = 8;
@@ -129,43 +113,19 @@ partial class MainForm
             this.BtnStartVote.UseVisualStyleBackColor = false;
             this.BtnStartVote.Click += new System.EventHandler(this.BtnStartVote_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.BtnStopVote);
-            this.groupBox1.Controls.Add(this.BtnStartVote);
-            this.groupBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.groupBox1.Location = new System.Drawing.Point(218, 9);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(213, 54);
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Auto vote";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(902, 69);
-            this.panel1.TabIndex = 6;
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.LogTxtBox, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.LogTxtBox, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 27);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(908, 652);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
@@ -174,263 +134,252 @@ partial class MainForm
             this.LogTxtBox.BackColor = System.Drawing.Color.Black;
             this.LogTxtBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LogTxtBox.ForeColor = System.Drawing.Color.White;
-            this.LogTxtBox.Location = new System.Drawing.Point(3, 535);
+            this.LogTxtBox.Location = new System.Drawing.Point(3, 355);
             this.LogTxtBox.MaxLength = 0;
             this.LogTxtBox.Multiline = true;
             this.LogTxtBox.Name = "LogTxtBox";
             this.LogTxtBox.ReadOnly = true;
             this.LogTxtBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.LogTxtBox.Size = new System.Drawing.Size(902, 114);
+            this.LogTxtBox.Size = new System.Drawing.Size(902, 294);
             this.LogTxtBox.TabIndex = 8;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.sliderNextVoteIsland);
-            this.panel2.Controls.Add(this.sliderAfterEnterIsland);
-            this.panel2.Controls.Add(this.sliderEnterIsland);
-            this.panel2.Controls.Add(this.sliderNextIsland);
-            this.panel2.Controls.Add(this.sliderPopupWait);
-            this.panel2.Controls.Add(this.sliderFindButton);
-            this.panel2.Controls.Add(this.sliderIslandStay);
-            this.panel2.Controls.Add(this.sliderMemoryGameBetweenScenes);
-            this.panel2.Controls.Add(this.sliderWaitBetweenActions);
-            this.panel2.Controls.Add(this.sliderDiamondsWait);
-            this.panel2.Controls.Add(this.sliderWindowToTop);
-            this.panel2.Controls.Add(this.sliderMouseClick);
-            this.panel2.Controls.Add(this.sliderFindProcess);
-            this.panel2.Controls.Add(this.sliderThresholdMapIsland);
-            this.panel2.Controls.Add(this.sliderThresholdButton);
+            this.panel2.Controls.Add(this.flatTextBox1);
+            this.panel2.Controls.Add(this.themeGroupBox2);
+            this.panel2.Controls.Add(this.themeGroupBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 78);
+            this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(902, 451);
+            this.panel2.Size = new System.Drawing.Size(902, 346);
             this.panel2.TabIndex = 9;
             // 
-            // sliderNextVoteIsland
+            // flatTextBox1
             // 
-            this.sliderNextVoteIsland.CurrentValue = 5;
-            this.sliderNextVoteIsland.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderNextVoteIsland.IsEnabled = true;
-            this.sliderNextVoteIsland.LabelToShow = "Delay next vote island (sec)";
-            this.sliderNextVoteIsland.Location = new System.Drawing.Point(623, 184);
-            this.sliderNextVoteIsland.MaxValue = 10;
-            this.sliderNextVoteIsland.MinValue = 5;
-            this.sliderNextVoteIsland.Multiplier = 1000;
-            this.sliderNextVoteIsland.Name = "sliderNextVoteIsland";
-            this.sliderNextVoteIsland.Size = new System.Drawing.Size(254, 70);
-            this.sliderNextVoteIsland.Steps = 1;
-            this.sliderNextVoteIsland.TabIndex = 29;
+            this.flatTextBox1.BackColor = System.Drawing.Color.Black;
+            this.flatTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(96)))), ((int)(((byte)(231)))));
+            this.flatTextBox1.BorderFocusColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(98)))), ((int)(((byte)(169)))));
+            this.flatTextBox1.BorderSize = 1;
+            this.flatTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.flatTextBox1.ForeColor = System.Drawing.Color.DimGray;
+            this.flatTextBox1.Location = new System.Drawing.Point(36, 225);
+            this.flatTextBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.flatTextBox1.Multiline = true;
+            this.flatTextBox1.Name = "flatTextBox1";
+            this.flatTextBox1.Padding = new System.Windows.Forms.Padding(7);
+            this.flatTextBox1.PasswordChar = false;
+            this.flatTextBox1.Size = new System.Drawing.Size(291, 62);
+            this.flatTextBox1.TabIndex = 12;
+            this.flatTextBox1.Texts = "";
+            this.flatTextBox1.UnderlinedStyle = false;
             // 
-            // sliderAfterEnterIsland
+            // themeGroupBox2
             // 
-            this.sliderAfterEnterIsland.CurrentValue = 10;
-            this.sliderAfterEnterIsland.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderAfterEnterIsland.IsEnabled = true;
-            this.sliderAfterEnterIsland.LabelToShow = "Delay after enter island (sec/10)";
-            this.sliderAfterEnterIsland.Location = new System.Drawing.Point(623, 98);
-            this.sliderAfterEnterIsland.MaxValue = 50;
-            this.sliderAfterEnterIsland.MinValue = 10;
-            this.sliderAfterEnterIsland.Multiplier = 100;
-            this.sliderAfterEnterIsland.Name = "sliderAfterEnterIsland";
-            this.sliderAfterEnterIsland.Size = new System.Drawing.Size(254, 70);
-            this.sliderAfterEnterIsland.Steps = 1;
-            this.sliderAfterEnterIsland.TabIndex = 28;
+            this.themeGroupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.themeGroupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
+            this.themeGroupBox2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.themeGroupBox2.BorderRadius = 10;
+            this.themeGroupBox2.BorderWidth = 1;
+            this.themeGroupBox2.Controls.Add(this.switchFireTorch);
+            this.themeGroupBox2.Controls.Add(this.switchVoteUp);
+            this.themeGroupBox2.Controls.Add(this.themeLabel4);
+            this.themeGroupBox2.Controls.Add(this.themeLabel5);
+            this.themeGroupBox2.Controls.Add(this.themeHorizontalSeparator2);
+            this.themeGroupBox2.Controls.Add(this.BtnStopVote);
+            this.themeGroupBox2.Controls.Add(this.BtnStartVote);
+            this.themeGroupBox2.DrawBorder = true;
+            this.themeGroupBox2.ForeColor = System.Drawing.Color.Gainsboro;
+            this.themeGroupBox2.LabelIndent = 20;
+            this.themeGroupBox2.Location = new System.Drawing.Point(612, 27);
+            this.themeGroupBox2.Name = "themeGroupBox2";
+            this.themeGroupBox2.Size = new System.Drawing.Size(251, 129);
+            this.themeGroupBox2.TabIndex = 11;
+            this.themeGroupBox2.TabStop = false;
+            this.themeGroupBox2.Text = "Auto vote";
             // 
-            // sliderEnterIsland
+            // themeHorizontalSeparator2
             // 
-            this.sliderEnterIsland.CurrentValue = 8;
-            this.sliderEnterIsland.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderEnterIsland.IsEnabled = true;
-            this.sliderEnterIsland.LabelToShow = "Delay enter island (sec/10)";
-            this.sliderEnterIsland.Location = new System.Drawing.Point(623, 12);
-            this.sliderEnterIsland.MaxValue = 20;
-            this.sliderEnterIsland.MinValue = 8;
-            this.sliderEnterIsland.Multiplier = 100;
-            this.sliderEnterIsland.Name = "sliderEnterIsland";
-            this.sliderEnterIsland.Size = new System.Drawing.Size(254, 70);
-            this.sliderEnterIsland.Steps = 1;
-            this.sliderEnterIsland.TabIndex = 27;
+            this.themeHorizontalSeparator2.BackColor = System.Drawing.Color.Transparent;
+            this.themeHorizontalSeparator2.ForeColor = System.Drawing.Color.DimGray;
+            this.themeHorizontalSeparator2.Location = new System.Drawing.Point(15, 55);
+            this.themeHorizontalSeparator2.Margin = new System.Windows.Forms.Padding(0);
+            this.themeHorizontalSeparator2.Name = "themeHorizontalSeparator2";
+            this.themeHorizontalSeparator2.SeparatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.themeHorizontalSeparator2.SeparatorSize = 2;
+            this.themeHorizontalSeparator2.Size = new System.Drawing.Size(220, 16);
+            this.themeHorizontalSeparator2.TabIndex = 10;
             // 
-            // sliderNextIsland
+            // themeGroupBox1
             // 
-            this.sliderNextIsland.CurrentValue = 8;
-            this.sliderNextIsland.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderNextIsland.IsEnabled = true;
-            this.sliderNextIsland.LabelToShow = "Delay next island (sec/10)";
-            this.sliderNextIsland.Location = new System.Drawing.Point(319, 356);
-            this.sliderNextIsland.MaxValue = 20;
-            this.sliderNextIsland.MinValue = 8;
-            this.sliderNextIsland.Multiplier = 100;
-            this.sliderNextIsland.Name = "sliderNextIsland";
-            this.sliderNextIsland.Size = new System.Drawing.Size(254, 70);
-            this.sliderNextIsland.Steps = 1;
-            this.sliderNextIsland.TabIndex = 26;
+            this.themeGroupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
+            this.themeGroupBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.themeGroupBox1.BorderRadius = 10;
+            this.themeGroupBox1.BorderWidth = 1;
+            this.themeGroupBox1.Controls.Add(this.themeHorizontalSeparator1);
+            this.themeGroupBox1.Controls.Add(this.BtnStop);
+            this.themeGroupBox1.Controls.Add(this.BtnStart);
+            this.themeGroupBox1.Controls.Add(this.switchMoney);
+            this.themeGroupBox1.Controls.Add(this.switchFood);
+            this.themeGroupBox1.Controls.Add(this.switchDiamonds);
+            this.themeGroupBox1.Controls.Add(this.themeLabel2);
+            this.themeGroupBox1.Controls.Add(this.themeLabel1);
+            this.themeGroupBox1.Controls.Add(this.themeLabel3);
+            this.themeGroupBox1.DrawBorder = true;
+            this.themeGroupBox1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.themeGroupBox1.LabelIndent = 20;
+            this.themeGroupBox1.Location = new System.Drawing.Point(36, 27);
+            this.themeGroupBox1.Name = "themeGroupBox1";
+            this.themeGroupBox1.Size = new System.Drawing.Size(251, 172);
+            this.themeGroupBox1.TabIndex = 10;
+            this.themeGroupBox1.TabStop = false;
+            this.themeGroupBox1.Text = "Auto collect";
             // 
-            // sliderPopupWait
+            // themeHorizontalSeparator1
             // 
-            this.sliderPopupWait.CurrentValue = 3;
-            this.sliderPopupWait.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderPopupWait.IsEnabled = true;
-            this.sliderPopupWait.LabelToShow = "Delay popup wait (sec/10)";
-            this.sliderPopupWait.Location = new System.Drawing.Point(16, 356);
-            this.sliderPopupWait.MaxValue = 30;
-            this.sliderPopupWait.MinValue = 3;
-            this.sliderPopupWait.Multiplier = 100;
-            this.sliderPopupWait.Name = "sliderPopupWait";
-            this.sliderPopupWait.Size = new System.Drawing.Size(252, 70);
-            this.sliderPopupWait.Steps = 1;
-            this.sliderPopupWait.TabIndex = 25;
+            this.themeHorizontalSeparator1.BackColor = System.Drawing.Color.Transparent;
+            this.themeHorizontalSeparator1.ForeColor = System.Drawing.Color.DimGray;
+            this.themeHorizontalSeparator1.Location = new System.Drawing.Point(16, 55);
+            this.themeHorizontalSeparator1.Margin = new System.Windows.Forms.Padding(0);
+            this.themeHorizontalSeparator1.Name = "themeHorizontalSeparator1";
+            this.themeHorizontalSeparator1.SeparatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.themeHorizontalSeparator1.SeparatorSize = 2;
+            this.themeHorizontalSeparator1.Size = new System.Drawing.Size(220, 16);
+            this.themeHorizontalSeparator1.TabIndex = 8;
             // 
-            // sliderFindButton
+            // switchMoney
             // 
-            this.sliderFindButton.CurrentValue = 3;
-            this.sliderFindButton.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderFindButton.IsEnabled = true;
-            this.sliderFindButton.LabelToShow = "Delay find button (sec/10)";
-            this.sliderFindButton.Location = new System.Drawing.Point(319, 270);
-            this.sliderFindButton.MaxValue = 10;
-            this.sliderFindButton.MinValue = 3;
-            this.sliderFindButton.Multiplier = 100;
-            this.sliderFindButton.Name = "sliderFindButton";
-            this.sliderFindButton.Size = new System.Drawing.Size(254, 70);
-            this.sliderFindButton.Steps = 1;
-            this.sliderFindButton.TabIndex = 24;
+            this.switchMoney.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.switchMoney.AutoSize = true;
+            this.switchMoney.Checked = true;
+            this.switchMoney.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.switchMoney.Location = new System.Drawing.Point(204, 75);
+            this.switchMoney.MinimumSize = new System.Drawing.Size(32, 16);
+            this.switchMoney.Name = "switchMoney";
+            this.switchMoney.OffBackColor = System.Drawing.Color.Gray;
+            this.switchMoney.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.switchMoney.OnBackColor = System.Drawing.Color.Gold;
+            this.switchMoney.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.switchMoney.Size = new System.Drawing.Size(32, 16);
+            this.switchMoney.TabIndex = 1;
+            this.switchMoney.UseVisualStyleBackColor = true;
             // 
-            // sliderIslandStay
+            // switchFood
             // 
-            this.sliderIslandStay.CurrentValue = 1;
-            this.sliderIslandStay.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderIslandStay.IsEnabled = true;
-            this.sliderIslandStay.LabelToShow = "Delay island stay (sec)";
-            this.sliderIslandStay.Location = new System.Drawing.Point(17, 270);
-            this.sliderIslandStay.MaxValue = 60;
-            this.sliderIslandStay.MinValue = 1;
-            this.sliderIslandStay.Multiplier = 1000;
-            this.sliderIslandStay.Name = "sliderIslandStay";
-            this.sliderIslandStay.Size = new System.Drawing.Size(252, 70);
-            this.sliderIslandStay.Steps = 5;
-            this.sliderIslandStay.TabIndex = 23;
+            this.switchFood.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.switchFood.AutoSize = true;
+            this.switchFood.Checked = true;
+            this.switchFood.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.switchFood.Location = new System.Drawing.Point(204, 128);
+            this.switchFood.MinimumSize = new System.Drawing.Size(32, 16);
+            this.switchFood.Name = "switchFood";
+            this.switchFood.OffBackColor = System.Drawing.Color.Gray;
+            this.switchFood.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.switchFood.OnBackColor = System.Drawing.Color.MediumSlateBlue;
+            this.switchFood.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.switchFood.Size = new System.Drawing.Size(32, 16);
+            this.switchFood.TabIndex = 5;
+            this.switchFood.UseVisualStyleBackColor = true;
             // 
-            // sliderMemoryGameBetweenScenes
+            // switchDiamonds
             // 
-            this.sliderMemoryGameBetweenScenes.CurrentValue = 10;
-            this.sliderMemoryGameBetweenScenes.Enabled = false;
-            this.sliderMemoryGameBetweenScenes.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderMemoryGameBetweenScenes.IsEnabled = true;
-            this.sliderMemoryGameBetweenScenes.LabelToShow = "Memory game between (sec/10)";
-            this.sliderMemoryGameBetweenScenes.Location = new System.Drawing.Point(319, 184);
-            this.sliderMemoryGameBetweenScenes.MaxValue = 50;
-            this.sliderMemoryGameBetweenScenes.MinValue = 10;
-            this.sliderMemoryGameBetweenScenes.Multiplier = 100;
-            this.sliderMemoryGameBetweenScenes.Name = "sliderMemoryGameBetweenScenes";
-            this.sliderMemoryGameBetweenScenes.Size = new System.Drawing.Size(254, 70);
-            this.sliderMemoryGameBetweenScenes.Steps = 1;
-            this.sliderMemoryGameBetweenScenes.TabIndex = 22;
+            this.switchDiamonds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.switchDiamonds.AutoSize = true;
+            this.switchDiamonds.Checked = true;
+            this.switchDiamonds.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.switchDiamonds.Location = new System.Drawing.Point(204, 101);
+            this.switchDiamonds.MinimumSize = new System.Drawing.Size(32, 16);
+            this.switchDiamonds.Name = "switchDiamonds";
+            this.switchDiamonds.OffBackColor = System.Drawing.Color.Gray;
+            this.switchDiamonds.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.switchDiamonds.OnBackColor = System.Drawing.Color.SkyBlue;
+            this.switchDiamonds.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.switchDiamonds.Size = new System.Drawing.Size(32, 16);
+            this.switchDiamonds.TabIndex = 3;
+            this.switchDiamonds.UseVisualStyleBackColor = true;
             // 
-            // sliderWaitBetweenActions
+            // themeLabel2
             // 
-            this.sliderWaitBetweenActions.CurrentValue = 3;
-            this.sliderWaitBetweenActions.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderWaitBetweenActions.IsEnabled = true;
-            this.sliderWaitBetweenActions.LabelToShow = "Delay default wait (sec/10)";
-            this.sliderWaitBetweenActions.Location = new System.Drawing.Point(17, 184);
-            this.sliderWaitBetweenActions.MaxValue = 10;
-            this.sliderWaitBetweenActions.MinValue = 3;
-            this.sliderWaitBetweenActions.Multiplier = 100;
-            this.sliderWaitBetweenActions.Name = "sliderWaitBetweenActions";
-            this.sliderWaitBetweenActions.Size = new System.Drawing.Size(252, 70);
-            this.sliderWaitBetweenActions.Steps = 1;
-            this.sliderWaitBetweenActions.TabIndex = 21;
+            this.themeLabel2.AutoSize = true;
+            this.themeLabel2.ForeColor = System.Drawing.Color.Gainsboro;
+            this.themeLabel2.Location = new System.Drawing.Point(16, 102);
+            this.themeLabel2.Name = "themeLabel2";
+            this.themeLabel2.Size = new System.Drawing.Size(85, 15);
+            this.themeLabel2.TabIndex = 2;
+            this.themeLabel2.Text = "Pick diamonds";
             // 
-            // sliderDiamondsWait
+            // themeLabel1
             // 
-            this.sliderDiamondsWait.CurrentValue = 3;
-            this.sliderDiamondsWait.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderDiamondsWait.IsEnabled = true;
-            this.sliderDiamondsWait.LabelToShow = "Delay diamonds wait (sec/10) ";
-            this.sliderDiamondsWait.Location = new System.Drawing.Point(319, 98);
-            this.sliderDiamondsWait.MaxValue = 100;
-            this.sliderDiamondsWait.MinValue = 3;
-            this.sliderDiamondsWait.Multiplier = 100;
-            this.sliderDiamondsWait.Name = "sliderDiamondsWait";
-            this.sliderDiamondsWait.Size = new System.Drawing.Size(254, 70);
-            this.sliderDiamondsWait.Steps = 7;
-            this.sliderDiamondsWait.TabIndex = 20;
+            this.themeLabel1.AutoSize = true;
+            this.themeLabel1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.themeLabel1.Location = new System.Drawing.Point(16, 75);
+            this.themeLabel1.Name = "themeLabel1";
+            this.themeLabel1.Size = new System.Drawing.Size(69, 15);
+            this.themeLabel1.TabIndex = 0;
+            this.themeLabel1.Text = "Pick money";
             // 
-            // sliderWindowToTop
+            // themeLabel3
             // 
-            this.sliderWindowToTop.CurrentValue = 2;
-            this.sliderWindowToTop.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderWindowToTop.IsEnabled = true;
-            this.sliderWindowToTop.LabelToShow = "Delay window to top (sec/10)";
-            this.sliderWindowToTop.Location = new System.Drawing.Point(17, 98);
-            this.sliderWindowToTop.MaxValue = 10;
-            this.sliderWindowToTop.MinValue = 2;
-            this.sliderWindowToTop.Multiplier = 100;
-            this.sliderWindowToTop.Name = "sliderWindowToTop";
-            this.sliderWindowToTop.Size = new System.Drawing.Size(252, 70);
-            this.sliderWindowToTop.Steps = 1;
-            this.sliderWindowToTop.TabIndex = 19;
+            this.themeLabel3.AutoSize = true;
+            this.themeLabel3.ForeColor = System.Drawing.Color.Gainsboro;
+            this.themeLabel3.Location = new System.Drawing.Point(16, 128);
+            this.themeLabel3.Name = "themeLabel3";
+            this.themeLabel3.Size = new System.Drawing.Size(57, 15);
+            this.themeLabel3.TabIndex = 4;
+            this.themeLabel3.Text = "Pick food";
             // 
-            // sliderMouseClick
+            // switchFireTorch
             // 
-            this.sliderMouseClick.CurrentValue = 3;
-            this.sliderMouseClick.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderMouseClick.IsEnabled = true;
-            this.sliderMouseClick.LabelToShow = "Delay mouse click (sec/10)";
-            this.sliderMouseClick.Location = new System.Drawing.Point(319, 12);
-            this.sliderMouseClick.MaxValue = 10;
-            this.sliderMouseClick.MinValue = 3;
-            this.sliderMouseClick.Multiplier = 100;
-            this.sliderMouseClick.Name = "sliderMouseClick";
-            this.sliderMouseClick.Size = new System.Drawing.Size(254, 70);
-            this.sliderMouseClick.Steps = 1;
-            this.sliderMouseClick.TabIndex = 18;
+            this.switchFireTorch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.switchFireTorch.AutoSize = true;
+            this.switchFireTorch.Checked = true;
+            this.switchFireTorch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.switchFireTorch.Location = new System.Drawing.Point(204, 75);
+            this.switchFireTorch.MinimumSize = new System.Drawing.Size(32, 16);
+            this.switchFireTorch.Name = "switchFireTorch";
+            this.switchFireTorch.OffBackColor = System.Drawing.Color.Gray;
+            this.switchFireTorch.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.switchFireTorch.OnBackColor = System.Drawing.Color.Orange;
+            this.switchFireTorch.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.switchFireTorch.Size = new System.Drawing.Size(32, 16);
+            this.switchFireTorch.TabIndex = 12;
+            this.switchFireTorch.UseVisualStyleBackColor = true;
             // 
-            // sliderFindProcess
+            // switchVoteUp
             // 
-            this.sliderFindProcess.CurrentValue = 3;
-            this.sliderFindProcess.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderFindProcess.IsEnabled = true;
-            this.sliderFindProcess.LabelToShow = "Delay find process (sec/10)";
-            this.sliderFindProcess.Location = new System.Drawing.Point(17, 12);
-            this.sliderFindProcess.MaxValue = 10;
-            this.sliderFindProcess.MinValue = 3;
-            this.sliderFindProcess.Multiplier = 100;
-            this.sliderFindProcess.Name = "sliderFindProcess";
-            this.sliderFindProcess.Size = new System.Drawing.Size(252, 70);
-            this.sliderFindProcess.Steps = 1;
-            this.sliderFindProcess.TabIndex = 17;
+            this.switchVoteUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.switchVoteUp.AutoSize = true;
+            this.switchVoteUp.Checked = true;
+            this.switchVoteUp.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.switchVoteUp.Location = new System.Drawing.Point(204, 101);
+            this.switchVoteUp.MinimumSize = new System.Drawing.Size(32, 16);
+            this.switchVoteUp.Name = "switchVoteUp";
+            this.switchVoteUp.OffBackColor = System.Drawing.Color.Gray;
+            this.switchVoteUp.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.switchVoteUp.OnBackColor = System.Drawing.Color.DarkOrchid;
+            this.switchVoteUp.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.switchVoteUp.Size = new System.Drawing.Size(32, 16);
+            this.switchVoteUp.TabIndex = 14;
+            this.switchVoteUp.UseVisualStyleBackColor = true;
             // 
-            // sliderThresholdMapIsland
+            // themeLabel4
             // 
-            this.sliderThresholdMapIsland.CurrentValue = 1;
-            this.sliderThresholdMapIsland.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderThresholdMapIsland.IsEnabled = true;
-            this.sliderThresholdMapIsland.LabelToShow = "Threshold map island text";
-            this.sliderThresholdMapIsland.Location = new System.Drawing.Point(623, 356);
-            this.sliderThresholdMapIsland.MaxValue = 99;
-            this.sliderThresholdMapIsland.MinValue = 1;
-            this.sliderThresholdMapIsland.Multiplier = 1;
-            this.sliderThresholdMapIsland.Name = "sliderThresholdMapIsland";
-            this.sliderThresholdMapIsland.Size = new System.Drawing.Size(254, 70);
-            this.sliderThresholdMapIsland.Steps = 5;
-            this.sliderThresholdMapIsland.TabIndex = 16;
+            this.themeLabel4.AutoSize = true;
+            this.themeLabel4.ForeColor = System.Drawing.Color.Gainsboro;
+            this.themeLabel4.Location = new System.Drawing.Point(16, 102);
+            this.themeLabel4.Name = "themeLabel4";
+            this.themeLabel4.Size = new System.Drawing.Size(47, 15);
+            this.themeLabel4.TabIndex = 13;
+            this.themeLabel4.Text = "Vote up";
             // 
-            // sliderThresholdButton
+            // themeLabel5
             // 
-            this.sliderThresholdButton.CurrentValue = 1;
-            this.sliderThresholdButton.ForeColor = System.Drawing.Color.Gainsboro;
-            this.sliderThresholdButton.IsEnabled = true;
-            this.sliderThresholdButton.LabelToShow = "Threshold buttons";
-            this.sliderThresholdButton.Location = new System.Drawing.Point(623, 270);
-            this.sliderThresholdButton.MaxValue = 99;
-            this.sliderThresholdButton.MinValue = 1;
-            this.sliderThresholdButton.Multiplier = 1;
-            this.sliderThresholdButton.Name = "sliderThresholdButton";
-            this.sliderThresholdButton.Size = new System.Drawing.Size(254, 70);
-            this.sliderThresholdButton.Steps = 5;
-            this.sliderThresholdButton.TabIndex = 15;
+            this.themeLabel5.AutoSize = true;
+            this.themeLabel5.ForeColor = System.Drawing.Color.Gainsboro;
+            this.themeLabel5.Location = new System.Drawing.Point(16, 75);
+            this.themeLabel5.Name = "themeLabel5";
+            this.themeLabel5.Size = new System.Drawing.Size(57, 15);
+            this.themeLabel5.TabIndex = 11;
+            this.themeLabel5.Text = "Fire torch";
             // 
             // MainForm
             // 
@@ -447,40 +396,38 @@ partial class MainForm
             this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.themeGroupBox2.ResumeLayout(false);
+            this.themeGroupBox2.PerformLayout();
+            this.themeGroupBox1.ResumeLayout(false);
+            this.themeGroupBox1.PerformLayout();
             this.ResumeLayout(false);
 
     }
 
     #endregion
     private Button BtnStart;
-    private GroupBox groupBox2;
     private Button BtnStop;
     private Button BtnStopVote;
     private Button BtnStartVote;
-    private GroupBox groupBox1;
-    private Panel panel1;
     private TableLayoutPanel tableLayoutPanel1;
     private TextBox LogTxtBox;
     private Panel panel2;
-    private Controls.Slider sliderThresholdButton;
-    private Controls.Slider sliderThresholdMapIsland;
-    private Controls.Slider sliderNextIsland;
-    private Controls.Slider sliderPopupWait;
-    private Controls.Slider sliderFindButton;
-    private Controls.Slider sliderIslandStay;
-    private Controls.Slider sliderMemoryGameBetweenScenes;
-    private Controls.Slider sliderWaitBetweenActions;
-    private Controls.Slider sliderDiamondsWait;
-    private Controls.Slider sliderWindowToTop;
-    private Controls.Slider sliderMouseClick;
-    private Controls.Slider sliderFindProcess;
-    private Controls.Slider sliderNextVoteIsland;
-    private Controls.Slider sliderAfterEnterIsland;
-    private Controls.Slider sliderEnterIsland;
+    private Alca259.UIControls.UserControls.SwitchCheckBox switchMoney;
+    private Alca259.UIControls.UserControls.ThemeLabel themeLabel1;
+    private Alca259.UIControls.UserControls.SwitchCheckBox switchFood;
+    private Alca259.UIControls.UserControls.ThemeLabel themeLabel3;
+    private Alca259.UIControls.UserControls.SwitchCheckBox switchDiamonds;
+    private Alca259.UIControls.UserControls.ThemeLabel themeLabel2;
+    private Alca259.UIControls.UserControls.ThemeGroupBox themeGroupBox1;
+    private Alca259.UIControls.UserControls.ThemeGroupBox themeGroupBox2;
+    private Alca259.UIControls.UserControls.ThemeHorizontalSeparator themeHorizontalSeparator1;
+    private Alca259.UIControls.UserControls.ThemeHorizontalSeparator themeHorizontalSeparator2;
+    private Alca259.UIControls.UserControls.FlatTextBox flatTextBox1;
+    private Alca259.UIControls.UserControls.SwitchCheckBox switchFireTorch;
+    private Alca259.UIControls.UserControls.SwitchCheckBox switchVoteUp;
+    private Alca259.UIControls.UserControls.ThemeLabel themeLabel4;
+    private Alca259.UIControls.UserControls.ThemeLabel themeLabel5;
 }

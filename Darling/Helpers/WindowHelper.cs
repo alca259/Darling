@@ -18,7 +18,7 @@ internal static partial class WindowHelper
 
     public static void GetWindowRectangle()
     {
-        IntPtr handle = AppSettings.Instance.CurrentProcess.WindowHandler;
+        IntPtr handle = AppInstance.Instance.CurrentProcess.WindowHandler;
         WindowRect rect = new WindowRect();
 
         if (Environment.OSVersion.Version.Major >= 6)
@@ -31,7 +31,7 @@ internal static partial class WindowHelper
             GetWindowRect(handle, out rect);
         }
 
-        AppSettings.Instance.CurrentProcess.LastWindowRect = rect.ToRectangle();
+        AppInstance.Instance.CurrentProcess.LastWindowRect = rect.ToRectangle();
     }
 
     /*
@@ -52,10 +52,10 @@ internal static partial class WindowHelper
     }
     */
 
-    public static void TakeScreenshot()
+    public static void TakeScreenshot(AppOptions options)
     {
-        IntPtr handle = AppSettings.Instance.CurrentProcess.WindowHandler;
-        Rectangle rc = AppSettings.Instance.CurrentProcess.LastWindowRect;
+        IntPtr handle = AppInstance.Instance.CurrentProcess.WindowHandler;
+        Rectangle rc = AppInstance.Instance.CurrentProcess.LastWindowRect;
 
         using Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppPArgb);
         using Graphics gfxBmp = Graphics.FromImage(bmp);
@@ -69,16 +69,16 @@ internal static partial class WindowHelper
         }
         gfxBmp.ReleaseHdc(hdc);
 
-        using FileStream fs = new FileStream(AppSettings.Instance.TempImageFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete);
+        using FileStream fs = new FileStream(options.TempImageFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete);
         bmp.Save(fs, ImageFormat.Jpeg);
 
-        AppSettings.Instance.CurrentProcess.CapturePath = fs.Name;
+        AppInstance.Instance.CurrentProcess.CapturePath = fs.Name;
     }
 
-    public static Task SetWindowToTopFront(CancellationToken token)
+    public static Task SetWindowToTopFront(AppOptions options, CancellationToken token)
     {
-        IntPtr handle = AppSettings.Instance.CurrentProcess.WindowHandler;
+        IntPtr handle = AppInstance.Instance.CurrentProcess.WindowHandler;
         BringWindowToTop(handle);
-        return Task.Delay(AppSettings.Instance.Delays.WindowToTop, token);
+        return Task.Delay(options.GetDelay(AppOptionsDelays.Keys.WINDOW_TO_TOP), token);
     }
 }

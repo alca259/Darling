@@ -1,11 +1,12 @@
 using Dapplo.Microsoft.Extensions.Hosting.WinForms;
+using Microsoft.Extensions.Options;
 
 namespace Darling;
 
 internal static class Program
 {
-    public static IHost? AppHost { get; private set; }
-    public static IServiceProvider? ServiceProvider { get; private set; }
+    public static IHost AppHost { get; private set; }
+    public static IServiceProvider ServiceProvider { get; private set; }
 
     /// <summary>
     ///  The main entry point for the application.
@@ -14,10 +15,6 @@ internal static class Program
     static void Main(string[] args)
     {
         ApplicationConfiguration.Initialize();
-
-        CultureInfo.CurrentCulture = new CultureInfo(AppSettings.Instance.Language);
-        CultureInfo.CurrentUICulture = new CultureInfo(AppSettings.Instance.Language);
-
         Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 
         Log.Logger.Information("Application is started.");
@@ -28,7 +25,12 @@ internal static class Program
         try
         {
             var mainForm = ServiceProvider.GetRequiredService<MainForm>();
-            mainForm.Title = $"{AppSettings.Instance.Name} - {AppSettings.Instance.Version}";
+            var options = ServiceProvider.GetRequiredService<IOptions<AppOptions>>();
+
+            CultureInfo.CurrentCulture = new CultureInfo(options.Value.Language);
+            CultureInfo.CurrentUICulture = new CultureInfo(options.Value.Language);
+
+            mainForm.Title = $"{options.Value.Name} - {options.Value.Version}";
             AppHost.Run();
         }
         catch (Exception ex)

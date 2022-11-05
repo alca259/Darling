@@ -27,7 +27,7 @@ internal static class MouseHelper
 
     public static async Task LeftClick(Point? optionalPoint = null, CancellationToken token = default)
     {
-        Point p = optionalPoint.HasValue ? optionalPoint.Value : AppSettings.Instance.CurrentProcess.ClickPoint;
+        Point p = optionalPoint.HasValue ? optionalPoint.Value : AppInstance.Instance.CurrentProcess.ClickPoint;
         SetCursorPos(p.X, p.Y);
         mouse_event(MouseEventFlags.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
         await Task.Delay(100, token);
@@ -36,7 +36,7 @@ internal static class MouseHelper
 
     public static async Task DoubleLeftClick(Point? optionalPoint = null, CancellationToken token = default)
     {
-        Point p = optionalPoint.HasValue ? optionalPoint.Value : AppSettings.Instance.CurrentProcess.ClickPoint;
+        Point p = optionalPoint.HasValue ? optionalPoint.Value : AppInstance.Instance.CurrentProcess.ClickPoint;
         SetCursorPos(p.X, p.Y);
         mouse_event(MouseEventFlags.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
         await Task.Delay(300, token);

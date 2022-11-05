@@ -11,5 +11,7 @@ internal static class ProgramServices
         services.AddSingleton<IMySingingMonsterService, MySingingMonsterService>();
 
         services.AddHostedService<KeyManagementListenerBackground>();
+
+        services.Configure<AppOptions>(context.Configuration.GetSection(nameof(AppOptions)));
     }
 }

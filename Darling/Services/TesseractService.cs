@@ -2,14 +2,13 @@
 
 internal class TesseractService : ITesseractService
 {
-    private const string Language = "spa";
-    private static string? TessDataPath;
-    private readonly IHostEnvironment _environment;
+    private const string LANGUAGE = "spa";
+
+    private static string TessDataPath { get; set; }
 
     public TesseractService(IHostEnvironment environment)
     {
-        _environment = environment;
-        TessDataPath = Path.Combine(_environment.ContentRootPath, "tessdata");
+        TessDataPath = Path.Combine(environment.ContentRootPath, "tessdata");
     }
 
     #region Tesseract
@@ -28,14 +27,14 @@ internal class TesseractService : ITesseractService
     /// </summary>
     /// <param name="imagePath">The image path.</param>
     /// <returns></returns>
-    public string GetStringFromImage(string? imagePath)
+    public string GetStringFromImage(string imagePath)
     {
         var textValue = string.Empty;
-        if (string.IsNullOrEmpty(imagePath) == false && File.Exists(imagePath) == true)
+        if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
         {
             try
             {
-                using var engine = new TesseractEngine(TessDataPath, Language, EngineMode.Default);
+                using var engine = new TesseractEngine(TessDataPath, LANGUAGE, EngineMode.Default);
                 using var img = Pix.LoadFromFile(imagePath);
                 using var page = engine.Process(img, pageSegMode: PageSegMode.Auto);
                 textValue = page.GetText().Replace("\n", " ").Trim();
@@ -57,14 +56,14 @@ internal class TesseractService : ITesseractService
     /// <param name="x2Percent">Valor en porcentaje</param>
     /// <param name="y2Percent">Valor en porcentaje</param>
     /// <returns></returns>
-    public string GetStringFromImage(string? imagePath, double x1Percent, double y1Percent, double x2Percent, double y2Percent)
+    public string GetStringFromImage(string imagePath, double x1Percent, double y1Percent, double x2Percent, double y2Percent)
     {
         var textValue = string.Empty;
-        if (string.IsNullOrEmpty(imagePath) == false && File.Exists(imagePath) == true)
+        if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
         {
             try
             {
-                using var engine = new TesseractEngine(TessDataPath, Language, EngineMode.Default);
+                using var engine = new TesseractEngine(TessDataPath, LANGUAGE, EngineMode.Default);
                 using var img = Pix.LoadFromFile(imagePath);
                 var rect = GetRect(x1Percent, x2Percent, y1Percent, y2Percent, img.Width, img.Height);
                 using var page = engine.Process(img, rect, PageSegMode.Auto);
@@ -87,14 +86,14 @@ internal class TesseractService : ITesseractService
     /// <param name="x2">Valor en pixels</param>
     /// <param name="y2">Valor en pixels</param>
     /// <returns></returns>
-    public string GetStringFromImage(string? imagePath, int x1, int y1, int x2, int y2)
+    public string GetStringFromImage(string imagePath, int x1, int y1, int x2, int y2)
     {
         var textValue = string.Empty;
-        if (string.IsNullOrEmpty(imagePath) == false && File.Exists(imagePath) == true)
+        if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
         {
             try
             {
-                using var engine = new TesseractEngine(TessDataPath, Language, EngineMode.Default);
+                using var engine = new TesseractEngine(TessDataPath, LANGUAGE, EngineMode.Default);
                 using var img = Pix.LoadFromFile(imagePath);
                 var rect = Rect.FromCoords(x1, y1, x2, y2);
                 using var page = engine.Process(img, rect, PageSegMode.Auto);
@@ -120,7 +119,7 @@ internal class TesseractService : ITesseractService
 
         try
         {
-            using var engine = new TesseractEngine(TessDataPath, Language, EngineMode.Default);
+            using var engine = new TesseractEngine(TessDataPath, LANGUAGE, EngineMode.Default);
             using var img = Pix.LoadFromMemory(imageFile);
             using var page = engine.Process(img, pageSegMode: PageSegMode.Auto);
             textValue = page.GetText().Replace("\n", " ").Trim();
@@ -149,7 +148,7 @@ internal class TesseractService : ITesseractService
 
         try
         {
-            using var engine = new TesseractEngine(TessDataPath, Language, EngineMode.Default);
+            using var engine = new TesseractEngine(TessDataPath, LANGUAGE, EngineMode.Default);
             using var img = Pix.LoadFromMemory(imageFile);
             var rect = GetRect(x1Percent, x2Percent, y1Percent, y2Percent, img.Width, img.Height);
             using var page = engine.Process(img, rect, PageSegMode.Auto);
@@ -179,7 +178,7 @@ internal class TesseractService : ITesseractService
 
         try
         {
-            using var engine = new TesseractEngine(TessDataPath, Language, EngineMode.Default);
+            using var engine = new TesseractEngine(TessDataPath, LANGUAGE, EngineMode.Default);
             using var img = Pix.LoadFromMemory(imageFile);
             var rect = Rect.FromCoords(x1, y1, x2, y2);
             using var page = engine.Process(img, rect, PageSegMode.Auto);
